@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%5p] %c{1}:%L - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="de.unibielefeld.techfak.tdpe.prorema.controller.ScheduleController" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="ALL"/>
+        </Logger>
+        <Logger name="de.unibielefeld.techfak.tdpe.prorema" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="DEBUG"/>
+        </Logger>
+        <Root level="ALL">
+            <AppenderRef ref="Console" level="WARN"/>
+        </Root>
+    </Loggers>
+</Configuration>

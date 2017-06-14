@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title th:text="#{domain.projectform.addProject}">PROREMA - Projekt hinzufügen</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/pikaday.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css"/>
+	<script src="/js/moment.min.js"></script>
+	<script src="/js/bootstrap-select.min.js"></script>
+	<script src="/js/pikaday.js"></script>
+	<script src="/js/pikaday.jquery.js"></script>
+	<script>
+		 $(document).ready(function () {
+            $("#dateStart").pikaday({
+    			 format: 'YYYY-MM-DD',
+   				 firstDay: 1
+            });
+        });
+	</script>
+	<script>
+		 $(document).ready(function () {
+            $("#dateEnd").pikaday({
+    			 format: 'YYYY-MM-DD',
+   				 firstDay: 1
+            });
+        });
+	</script>
+	<script th:inline="javascript">
+		function addSkill() {
+			var id = $('#skill').val();
+			var name = $("#skill option[value='" + id + "']").text();
+			if($("#" + name).length != 0) {
+				return;
+			}
+
+			var level = $('#level').val();
+			var classBtnInfo = "btn btn-info";
+			var typeButton = "button";
+			var removeSkill = "removeNewSkill(";
+			var closeBracket = ")";
+			var classColMd5 = "text-center";
+			var classColMd2 = "col-md-2";
+
+			$('#skillTable').append('<tr id="'+name+'">' +
+					'<td class="'+classColMd5+'">' + name + '</td>' +
+					'<td class="'+classColMd5+'">' + level + '</td>' +
+					'<td class="'+classColMd2+'">' +
+					'<input type="hidden" name="newSkillIds" value="' + id + '" />' +
+					'<input type="hidden" name="newSkillLevels" value="' + level + '" />' +
+					'<button type="'+typeButton+'" class="'+classBtnInfo+'" onclick="'+ removeSkill + name + closeBracket + '" >Löschen</button>' +
+					'</td></tr>');
+
+		}
+		function removeNewSkill(skill) {
+			$(skill).remove();
+		}
+		function removeSkill(skillName, needsSkillId) {
+			$(skillName).remove();
+			$('#projectForm').append('<input type="hidden" name="removedNeedsSkillIds" value="' + needsSkillId + '" />');
+		}
+
+		function disableForm(select) {
+			if ((select.value == "WON") || (select.value == "LOST")){
+				document.getElementById("isrunning").style.visibility = "hidden";
+			} else {
+				document.getElementById("isrunning").style.visibility = "visible";
+			}
+		}
+	</script>
+
+</head>
+<body>
+
+<div  layout:fragment="content">
+
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 align="center" th:text="#{domain.projectform.editProject}">
+					Projekt hinzufügen / bearbeiten
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<form id="projectForm" class="form-horizontal" role="form" action="#" th:action="@{/projectform}" th:object="${newProjectCmd}" method="post">
+				<div class="jumbotron">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Name <span style="color: red">*</span> </label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="name" th:field="*{name}" required="true" />
+							<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Darf nicht leer sein! </td>
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.projectform.contact}">Kontakt</label>
+						<div class="col-sm-8">
+							<select th:field="*{contactId}" class="selectpicker show-tick form-control" data-live-search="true" data-style="btn-success">
+								<option th:each="contact:${contacts}"
+										th:value="${contact.id}"
+										th:text="${contact.firstName}+ ' ' + ${contact.lastName}">Positionen
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.projectform.projectManager}">Projekt Manager</label>
+						<div class="col-sm-8">
+							<select th:field="*{projectManagerId}" class="selectpicker show-tick form-control" data-live-search="true" data-style="btn-success">
+								<optgroup th:each="mapEntry:${organisationUnitManager}" th:label="${mapEntry.key}" label="Dummy unit">
+									<option th:each="manager:${mapEntry.value}"
+											th:value="${manager.id}"
+											th:text="${manager.nameTitle}+ ' ' +${manager.firstName}+ ' ' + ${manager.lastName}">Positionen
+									</option>
+								</optgroup>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-3 control-label" th:text="#{domain.projectform.area}">Bereich</label>
+					<div class="col-sm-8">
+						<select th:field="*{orgaUnitId}" class="selectpicker show-tick form-control" data-style="btn-success">
+							<option th:each="orgaUnit :${orgaUnits}"
+									th:value="${orgaUnit.id}"
+									th:text="${orgaUnit.name}+ ' '+ '(' + ${orgaUnit.description} + ')'">Bereiche</option>
+						</select>
+					</div>
+					</div>
+					<div class="form-group">
+
+						<label class="col-sm-3 control-label">Status</label>
+						<div class="col-sm-8">
+							<select id="status" th:field="*{status}" class="selectpicker show-tick form-control" data-style="btn-success" onchange="disableForm(this)">
+								<option th:each="status :${T(de.unibielefeld.techfak.tdpe.prorema.domain.Project.Status).values()}"
+										th:value="${status}"
+										th:text="${status}"
+										th:id="${status}">Status</option>
+							</select>
+						</div>
+
+					</div>
+					<div id="isrunning" class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.projectform.currentlyRunning}">Bereits Laufend?</label>
+						<div class="col-sm-2">
+							<select  th:field="*{running}" class="selectpicker show-tick form-control" data-style="btn-success">
+								<option value="true" th:text="#{domain.projectform.yes}">Ja</option>
+								<option value="false" th:text="#{domain.projectform.no}">Nein</option>
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<label for="text" th:text="#{domain.projectform.description}">Beschreibung:</label>
+						<textarea class="form-control" rows="4" id="text" name="describe" th:field="*{description}"></textarea>
+					</div>
+				</div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<a class="panel-title" data-toggle="collapse" href="#panel-element-infos" th:text="#{domain.projectform.enhancedInformations}">Erweiterte Informationen (Optional)</a>
+					</div>
+					<div id="panel-element-infos" class="panel-collapse collapse out">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.period}">Zeitraum </label>
+								<div class="col-sm-3">
+									<input id="dateStart" class="form-control" type="text" name ="startDate" th:field="*{startDate}" />
+								</div>
+								<div class="col-sm-2">
+									<p style="font-size:140%; text-align:center;" th:text="#{domain.projectform.until}">bis zum</p>
+								</div>
+								<div class="col-sm-3">
+									<input id="dateEnd" class="form-control" type="text" name ="endDate" th:field="*{endDate}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.probability}">Wahrscheinlichkeit <br />  ( % es zu Gewinnen)</label>
+								<div class="col-sm-8">
+									<input id="cProb" class="form-control" type="number" min="0" max="100"
+										   name ="conversionProbability" th:field="*{conversionProbability}"
+										   data-error="Kann nicht niedriger als 0 sein oder 100 übersteigen" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.amountOfWork}">Arbeitsaufwand <br /> (in Tagen)</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="number" min="0" name ="menDays" th:field="*{menDays}"
+										   data-error="Kann nicht niedriger als 0 sein"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.volume}">Volumen</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="number" name ="proVolume" th:field="*{potentialProjectVolume}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<a class="panel-title" data-toggle="collapse" href="#panel-element-skills" th:text="#{domain.projectform.demandedSkills}">Geforderte Skills (Optional)</a>
+					</div>
+					<div id="panel-element-skills" class="panel-collapse collapse out">
+						<div class="panel-body">
+							<div class="form-group control-label">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-10">
+
+									<div class="col-md-5">
+
+										<select id="skill" class="selectpicker show-tick form-control" data-live-search="true" data-style="btn-info">
+											<option th:each="skill :${skills}"
+													th:text="${skill.name}"
+													th:value="${skill.id}">Skill</option>
+										</select>
+
+									</div>
+									<div class="col-md-5">
+										<select id="level" class="selectpicker show-tick form-control" data-style="btn-info">
+											<option th:each="skilllevel :${T(de.unibielefeld.techfak.tdpe.prorema.domain.Skill.SkillLevel).values()}"
+													th:text="${skilllevel}">Level</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<button type="button" onclick="addSkill()" class="btn btn-info" th:text="#{domain.projectform.save}">Speichern</button>
+									</div>
+
+									<br /><br />
+
+
+									<table class="table" id="skillTable">
+										<thead>
+										<tr>
+											<th class="col-md-5">
+												Skill
+											</th>
+											<th class="col-md-5">
+												Level
+											</th>
+											<th class="col-md-2">
+												Remove
+											</th>
+										</tr>
+										</thead>
+										<tbody th:if="${needsSkilllist} != null">
+										<tr th:each="skill:${needsSkilllist}" th:id="${skill.skill.name}">
+											<td class="text-center" th:text="${skill.skill.name}"></td>
+											<td class="text-center" th:text="${skill.skillLevel}"></td>
+											<td class="col-md-2">
+												<button type="button" class="btn btn-info" th:onclick="'removeSkill(' + ${skill.skill.name} + ', \'' + ${skill.id} + '\')'"  th:text="#{domain.projectform.delete}">Löschen</button>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<a class="panel-title" data-toggle="collapse" href="#panel-element-location" th:text="#{domain.projectform.location}">Standort (Optional)</a>
+					</div>
+					<div id="panel-element-location" class="panel-collapse collapse out">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.country}">Land</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name ="country" th:field="*{country}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.street}">Straße</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name ="street" th:field="*{street}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.projectform.zip}">PLZ</label>
+								<div class="col-sm-3">
+									<input class="form-control" type="number" min="1" name ="zip" th:field="*{zip}"
+										   data-error="Kann nicht niedriger als 0 sein" />
+								</div>
+								<label class="col-sm-1 control-label" th:text="#{domain.projectform.city}">Stadt</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" name ="city" th:field="*{city}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br />
+				<br />
+				<input type="hidden" th:field="*{id}"/>
+				<button type="submit" class="btn btn-success btn-block btn-lg" th:text="#{domain.projectform.save}">Speichern</button>
+			</form>
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+	<br /><br /><br />
+</div>
+</body>
+</html>

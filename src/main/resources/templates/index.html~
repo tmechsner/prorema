@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PROREMA - Anmeldung</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="Philip Buschmann">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#"><img src="img/reply.png" width="120" height="30"></a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="#">Start</a>
+						</li>
+						<li>
+							<a href="#">Dokumentation</a>
+						</li>
+						<li>
+							<a href="#">Support</a>
+						</li>
+					</ul>
+				
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Optionen<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Hilfe</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Probleme melden</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#login">Anmelden</a>
+						</li>
+						<div class="col-md-1">
+						</div>
+					</ul>
+				</div>
+			</div>	
+		</div>
+		
+			<div class="row">
+				<div class="col-md-12">
+					<h2><font color='#FFFFFF'>dada</font></h2>
+				</div>
+			</div>
+				
+				
+				
+			</nav>
+			
+						<a href="home.html"><img class="img-responsive" alt="Banner PROREMA" src="img/banner.jpg" /></a>
+			
+			<div class="jumbotron">
+				<h2 id="login">
+					<b>WILLKOMMEN ZU PROREMA</b>
+				</h2>
+				<p>
+					PROREMA ist das Projekt Ressource Management der REPLY GmbH. Über das untere Login-Formular können Bereichsleiter zum aktuellen Projektplan zugreifen und Personal zu neuen und bestehenden Projekten zuweisen. Viel Erfolg!
+				</p>
+			</div>
+			
+			<div class="row">
+		<div class="col-md-12">
+			<h2>
+				 <div class="col-md-12">
+					<h2>
+				     
+					</h2>
+				</div>     
+			</h2>
+		</div>	
+		
+	</div>
+			
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					 
+					<label for="inputEmail3" class="col-sm-2 control-label">
+						E-Mail
+					</label>
+					<div class="col-sm-3">
+						<input class="form-control" id="inputEmail3" type="email">
+					</div>
+				</div>
+				<div class="form-group">
+					 
+					<label for="inputPassword3" class="col-sm-2 control-label">
+						Passwort
+					</label>
+					<div class="col-sm-3">
+						<input class="form-control" id="inputPassword3" type="password">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							 
+							<label>
+								<input type="checkbox"> Login speichern
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						 
+						<button type="submit" class="btn btn-default">
+						<a href="home.html">Anmelden</a>
+						</button>
+					</div>
+				</div>
+			</form>
+		
+	<div class="row">
+		<div class="col-md-12">
+			<h2>
+				 <div class="col-md-12">
+					<h2>
+				     
+					</h2>
+				</div>     
+			</h2>
+		</div>	
+		
+	</div>
+	
+	<div class="jumbotron">
+		<div class="col-md-6">
+			<h2>
+				DOKUMENTATION
+			</h2>
+			<p>
+				Für die Nutzung von PROREMA liegt eine ausführliche Dokumentation bei, die alle offenen Fragen klärt und zudem anschauliche Anfänger-Tutorials besitzt. Die Dokumentation eignet sich für Einsteiger und fortgeschrittene Nutzer.
+			</p>
+			<p>
+				<a class="btn" href="#">Zur Dokumentation »</a>
+			</p>
+		</div>
+		<div class="col-md-6">
+			<h2>
+				SUPPORT
+			</h2>
+			<p>
+				Gibt es ein technisches Problem? Über das Kontaktformular kann zuständiges Personal die Probleme bei der Nutzung von PROREMA beseitigen.
+				<br />
+				<br />
+			</p>
+			<p>
+				<a class="btn" href="#">Support kontaktieren »</a>
+			</p>
+		</div>
+		<p>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		</p>
+	</div>
+
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

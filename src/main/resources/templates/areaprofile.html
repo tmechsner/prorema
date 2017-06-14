@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="PROREMA - ${orgaUnit.name}"></title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h1 th:text="#{domain.areaprofile.areaProfile}">
+                    Bereich Profil
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div th:unless="${orgaUnit == null}" class="jumbotron container-fluid">
+
+        <div class="col-md-10">
+            <h2>
+                <b th:text="${orgaUnit.name}"></b>
+            </h2>
+            <h3>
+                <font color='#808080' th:text="${orgaUnit.description}"></font>
+            </h3>
+        </div>
+        <div class="col-md-2">
+            <br />
+            <br />
+            <a class="btn btn-success btn-large" th:href="@{/areaform(id=${orgaUnit.id})}" th:text="#{domain.areaprofile.editArea}">Bereich bearbeiten</a>
+            <br />
+            <br />
+            <a id="modal-784526" href="#modal-container-784526" class="btn btn-success" role="button" data-toggle="modal" th:text="#{domain.areaprofile.displayHistory}"> Verlauf anzeigen</a>
+        </div>
+    </div>
+
+    <div th:unless="${orgaUnit == null}" class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.areaprofile.areaManager}">
+                                Bereichsleiter
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <a th:href="@{/userprofile(id=${firstmanager.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${firstmanager.nameTitle}+' '+${firstmanager.firstName}+' '+${firstmanager.lastName}"></font>
+                                </a>
+                            </div>
+                            <div class="list-group">
+                                <a th:href="@{/userprofile(id=${secondmanager.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${secondmanager.nameTitle}+' '+${secondmanager.firstName}+' '+${secondmanager.lastName}"></font>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.areaprofile.employee}">
+                                Mitarbeiter
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="emp:${employees}">
+                                <a th:href="@{/userprofile(id=${emp.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${emp.nameTitle}+' '+${emp.firstName}+' '+${emp.lastName}"></font>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.areaprofile.projects}">
+                                Projekte
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="pro:${projects}">
+                                <a th:href="@{/singleproject(id=${pro.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${pro.name}"></font>
+                                    <font color='#00b04e'>(</font>
+                                    <font color='#00b04e' th:text="${pro.running} ? 'Laufend' : ${pro.status.name}"></font>
+                                    <font color='#00b04e'>)</font>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout/fragments/historyPopUp :: historyPopUp">
+        static stuff
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+
+    <title th:text="#{domain.home.mainPage}">PROREMA - Hauptseite</title>
+
+	<script src="/js/Chart.bundle.min.js"></script>
+	<style>
+	  canvas {
+		  -moz-user-select: none;
+		  -webkit-user-select: none;
+		  -ms-user-select: none;
+	  }
+	</style>
+
+	  <script type="text/javascript" th:inline="javascript">
+
+		  var values1 = /*[[${planned}]]*/ [];
+		  var values2 = /*[[${capacity}]]*/ [];
+		  var values3 = /*[[${irregular}]]*/ [];
+		  var labels = /*[[${names}]]*/ [];
+
+		  var test = /*[[${homeName}]]*/ [];
+
+		  var horizontalBarChartData = {
+			  labels: labels,
+			  datasets: [{
+				  label: 'Reguläre Auslastung in %',
+				  backgroundColor: "rgba(92,184,92,1)",
+				  borderColor: 'rgb(92, 184, 92)',
+				  data: values1
+			  },
+				  {
+					  label: 'Überbuchung in %',
+					  backgroundColor: "rgba(77,77,77,1)",
+					  borderColor: 'rgb(77,77,77)',
+					  data: values3
+				  },
+
+				  {
+					  label: 'Kapazität in %',
+					  backgroundColor: "rgba(217,83,79,1)",
+					  borderColor: 'rgb(217, 83, 79)',
+					  data: values2
+				  }]
+
+		  };
+		  window.onload = function() {
+			  var ctx = document.getElementById("canvas").getContext("2d");
+			  window.myHorizontalBar = new Chart(ctx, {
+				  type: 'horizontalBar',
+				  data: horizontalBarChartData,
+				  options: {
+					  scales: {
+						  xAxes: [{
+							  ticks: {
+								  max: /*[[${maxValue}]]*/ 100,
+								  min: 0
+							  },
+							  stacked : true
+						  }],
+						  yAxes: [{
+							  stacked: true
+						  }]
+					  },
+					  elements: {
+						  rectangle: {
+							  borderWidth: 2,
+							  borderSkipped: 'left'
+						  }
+					  }
+				  }
+			  });
+		  };
+	  </script>
+
+  </head>
+  <body>
+
+    <div layout:fragment="content">
+
+		<br />
+
+		<div class="jumbotron">
+			<h2 th:text="#{domain.home.hello} + ' ' + ${homeName} + ','" />
+			<p th:text="#{domain.home.welcome}">Willkommen bei PROREMA. <br />
+				Auf der Startseite finden Sie eine kurze Überischt ihrer aktuellen Projekte und Mitarbeiter. </p>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-3">
+				<br />
+				<div class="jumbotron" style="padding: 25px; min-height: 490px; padding-bottom: 5px">
+					<center><h2><em class="glyphicon glyphicon-file"></em> PROJEKTE</h2></center>
+					<div class="row" th:each="pro:${projects}">
+						<div class="thumbnail" style="padding-top: 0px; padding-bottom: 0px;">
+							<div class="caption" style="padding-top: 0px; padding-bottom: 0px;">
+								<a th:href="@{'/singleproject'(id=${pro.id})}">
+									<h3 th:text="${pro.name}">
+										Default
+									</h3>
+								</a>
+								<p style="font-size: 100%" th:text="#{domain.home.remainingProjectDuration}">
+									restliche Projektlaufzeit:
+								</p>
+								<p style="color: #780000; font-size: 110%">
+									<span class="glyphicon glyphicon-time">
+									</span> <span th:text="${pro.remainingTime}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6" id="container">
+				<br />
+				<div class="jumbotron" style="padding: 25px; min-height: 490px">
+					<center><h2 th:text="#{domain.home.monthlyWorkload}"><em class="glyphicon glyphicon-dashboard"></em> MONATSAUSLASTUNG</h2></center>
+					<br />
+					<canvas id="canvas"></canvas>
+				</div>
+			</div>
+
+			<div class="col-lg-3">
+				<br />
+				<div class="jumbotron" style="padding: 25px; min-height: 490px">
+					<div class="row">
+						<div class="col-md-12">
+							<center><h2 th:text="#{domain.home.statistic}">
+								<em class="glyphicon glyphicon-stats"></em> STATISTIK
+							</h2></center>
+							<p>
+							<ul>
+								<li>
+									<div th:text="#{domain.home.underBooked} + ' ' + ${underbookedPrj}"> Zahl</div>
+									<ul>
+										<div th:text="#{domain.home.pipelineProjects} + ': ' + ${underbookenPipeline}"> Maximal so gross wie
+											oben
+										</div>
+									</ul>
+								</li>
+								<li>
+									<div th:text="#{domain.home.totalOngoingProjects} + ' ' + ${projectCount}"> 3</div>
+								</li>
+								<li>
+									<div th:text="#{domain.home.underBookedEmployees} + ' ' + ${underbookedEm}"> 2</div>
+								</li>
+								<li>
+									<div th:text="#{domain.home.totalEmployees} + ' ' + ${employeeCount}"> 5</div>
+								</li>
+							</ul>
+							</p>
+								<br/>
+							</div>
+						</div>
+					<br /><br />
+					<div class="row">
+
+						<a href="/schedule"><button type="button" class="btn btn-block btn-lg active btn-success" th:text="#{domain.home.scheduleView}" >
+							<span class="glyphicon glyphicon-info-sign"></span> Planungsansicht </button></a>
+					</div>
+					<br />
+					<div class="row">
+
+						<a href="/projectform"><button type="button" class="btn active btn-block btn-lg btn-primary" th:text="#{domain.home.newProject}" >
+							<span class="glyphicon glyphicon-plus-sign"></span> Neues Projekt </button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+  </body>
+</html>

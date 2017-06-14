@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
+
+</head>
+<body>
+
+    <div th:fragment="footer">
+
+        <footer class="footer-distributed">
+
+            <div class="footer-right">
+
+                <a href="?lang=de">DE</a>
+
+                <a href="?lang=en">EN</a>
+
+            </div>
+
+            <div class="footer-left">
+
+                <p class="footer-links">
+                    <a th:href="@{/impressumLoggedIn}" th:text="#{domain.footer.siteNotice}">Impressum</a>
+                    ·
+                    <a href="/ProReMa-Benutzerhandbuch.PDF">Dokumentation</a>
+                    ·
+                    <a th:href="@{/support}">Support</a>
+                </p>
+
+                <p class="copy">Firma AG &copy; 2016</p>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+</body>
+</html>

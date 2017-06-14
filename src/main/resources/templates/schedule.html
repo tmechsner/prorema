@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="#{domain.schedule.schedulemodule}">PROREMA - Planungsmodul</title>
+
+    <link href="/css/jquery.bootgrid.css" rel="stylesheet"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="/css/schedule.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css"/>
+
+    <script src="/js/bootstrap-select.min.js"></script>
+    <link href="/css/jquery.tagit.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/SouthStreet/jquery-ui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.4.0/css/pikaday.css"/>
+
+
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/pikaday.js"></script>
+    <script src="/js/shedule.js"></script>
+
+</head>
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>
+                    <span th:text="#{domain.schedule.scheduleModule}">Planungsmodul</span>
+                    <small th:text="#{domain.schedule.atAGlance}">Der Auslastungsplan auf einen Blick</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-group" id="panel-476478">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-476478"
+                           href="#panel-search" th:text="#{domain.schedule.searchInSchedule}"><span class="glyphicon glyphicon-search"></span> Planung durchsuchen</a>
+                        <div class="row"  style="float: right; padding-right: 1em;">
+                            <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom" style="padding-right: 0.3em;" th:title="#{domain.schedule.filter}">  </span>
+
+                            <div class="btn-group">
+                                <a id="save1" href="/shedule" class="btn btn-default disabled  btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-filter"></span> 1</a>
+                                <button onclick="setCookie(1)" class="btn btn-xs btn-default"><span
+                                        class="glyphicon glyphicon-floppy-disk"></span></button>
+                            </div>
+
+                            <div class="btn-group">
+                                <a id="save2" href="/shedule" class="btn btn-default disabled  btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-filter"></span> 2</a>
+                                <button onclick="setCookie(2)" class="btn btn-default btn-xs"><span
+                                        class="glyphicon glyphicon-floppy-disk"></span></button>
+                            </div>
+
+                            <div class="btn-group">
+                                <a id="save3" href="/shedule" class="btn btn-default disabled btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-filter"></span> 3</a>
+                                <button onclick="setCookie(3)" class="btn btn-xs btn-default"><span
+                                        class="glyphicon glyphicon-floppy-disk"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="panel-search" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select id="selects" class="selectpicker show-tick" data-live-search="true" onchange="if (this.value) window.location.href=this.value">
+                                        <option value="">Mitarbeiter finden</option>
+                                        <option value="/schedule">Alle Mitarbeiter</option>
+                                        <option th:each="empl:${searchEmployees}"
+                                                th:value="'/schedule?emId='+${empl.id}"
+                                                th:text="${empl.firstName}+ ' ' + ${empl.lastName}"
+                                                required="required">Mitarbeiter
+                                        </option>
+                                    </select></div>
+                                <div class="col-md-6">
+                                    <select id="selectf" class="selectpicker show-tick" data-live-search="true" onchange="if (this.value) window.location.href=this.value">
+                                        <option value="">Projekt finden</option>
+                                        <option value="/schedule">Alle Projekte</option>
+                                        <option th:each="project:${searchProjects}"
+                                                th:value="'/schedule?projectId='+${project.id}"
+                                                th:text="${project.name}"
+                                                required="required" placeholder="">Projekt
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="copybuttons"></div></div>
+    </div>
+    <br/>
+
+    <ul class="nav nav-tabs">
+        <li id="start">
+            <a href="/schedule" th:text="#{domain.schedule.allAreas}">Alle Bereiche </a>
+        </li>
+        <li th:each="unit:${units}">
+            <a th:href="@{'/schedule'(unitId=${unit.id})}" th:text="#{domain.schedule.area} + ' '+ ${unit.name}">Bereich 1</a>
+        </li>
+    </ul>
+    <br/>
+    <div type="hidden" id="url"></div>
+    <div class="table-responsive">
+        <table id="grid-basic" class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th data-column-id="mitarbeiter" th:text="#{domain.schedule.employees}">
+                    Mitarbeiter
+                </th>
+                <th th:if="${monthly == null}" th:each="date,iterStat:${weekDates}" data-column-id="zeit1">
+                    <div class="text-center" th:text="${date}">09.05. - 14.05.">Diese Woche</div>
+                </th>
+                <th th:unless="${monthly = null}" th:each="month,iterStat:${months}"
+                    th:text="${#temporals.format(month, 'MMM yy')}">
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="row:${rows}" th:with="empl=${row.employee}">
+                <tr data-toggle="collapse" style="border-top: 3px #aaa solid" data-target=".details"
+                    th:attrappend="data-target=${empl.id}">
+                    <td>
+                        <button class="btn btn-default btn-xs" th:unless="${#maps.isEmpty(row.subRows)}">
+                            <span class="glyphicon glyphicon-triangle-bottom"></span>
+                        </button>
+                    </td>
+                    <td style="min-width:190px; vertical-align: middle;">
+                        <a th:text="${empl.nameTitle}+${empl.firstName}+' '+${empl.lastName}"
+                           th:href="@{'/userprofile'(id=${empl.id})}"></a>
+                    </td>
+                    <th:block th:each="element:${row.condensedRow}">
+                        <th:block th:if="${monthly == null}" th:switch="${#strings.toString(element.load)}">
+                            <td th:case="MORE" th:colspan="${element.weekSpan}" >
+                                <th:block th:fragment="elementContent(condensedRow)">
+                                    <th:block th:unless="${element.status == null}"
+                                              th:switch="${#strings.toString(element.status)}">
+                                        <a th:case="Disponierbar"
+                                           class="btn btn-default btn-xs btn-block btn-zero"
+                                           data-toggle="tooltip"
+                                           data-html="true"
+                                           th:title="0 + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'">
+                                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                        </a>
+                                        <div th:case="Geblockt" class="btn-group btn-group-xs btn-block" role="group">
+                                            <a th:class="'btn btn-default btn-xs btn-block btn-' + ${#strings.toString(element.load).toLowerCase()}"
+                                               data-toggle="tooltip"
+                                               data-html="true"
+                                               th:title="${element.workload} + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'">
+                                                <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                            </a>
+                                        </div>
+                                        <div th:case="Disponiert" class="btn-group btn-group-xs btn-block" role="group">
+                                            <a th:class="'btn btn-default btn-xs btn-block btn-' + ${#strings.toString(element.load).toLowerCase()}"
+                                               data-toggle="tooltip"
+                                               data-html="true"
+                                               th:title="${element.workload} + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'">
+                                                <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                            </a>
+                                        </div>
+                                        <a th:case="Ausfallzeit" class="btn btn-default btn-xs btn-ausfall btn-block">
+                                            <span th:text="${#strings.toString(element.status)}"></span>
+                                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                        </a>
+                                        <a th:case="Angeboten"
+                                           th:class="'btn btn-default btn-xs btn-block btn-' + ${#strings.toString(element.load).toLowerCase()}"
+                                           data-toggle="tooltip"
+                                           data-html="true"
+                                           th:title="${element.workload} + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'">
+                                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                        </a>
+                                        <a th:case="Nicht angegeben" class="btn btn-default btn-xs btn-block">
+                                            <span th:text="${#strings.toString(element.status)}"></span>
+                                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                        </a>
+                                    </th:block>
+                                    <th:block th:if=" ${element.status == null}">
+                                        <button th:title="${element.workload} + '/ ' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'"
+                                                th:classappend="'btn-' + ${#strings.toString(element.load).toLowerCase()}"
+                                                class="btn btn-default btn-xs btn-block" data-toggle="tooltip"
+                                                data-html="true">
+                                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                        </button>
+                                    </th:block>
+                                </th:block>
+                            </td>
+                            <td th:case="IDEAL" th:colspan="${element.weekSpan}">
+
+                                <div th:replace="this :: elementContent(true)"></div>
+                            </td>
+                            <td th:case="LESS" th:colspan="${element.weekSpan}">
+                                <div th:replace="this :: elementContent(true)"></div>
+                            </td>
+                        </th:block>
+                        <th:block th:unless="${monthly == null}">
+                            <td class="text-center bordered">
+                                <th:block th:unless="${element.status == null}"
+                                          th:switch="${#strings.toString(element.status)}">
+                                    <a th:case="Disponierbar" class="btn btn-default btn-xs btn-block btn-danger"
+                                       th:href="@{'/schedule'(startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a>
+                                    <a th:case="Geblockt" class="btn btn-default btn-xs btn-block btn-warning"
+                                       th:href="@{'/schedule'(startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a>
+                                    <a th:case="Disponiert" class="btn btn-default btn-xs btn-block btn-success"
+                                       th:href="@{'/schedule'(emId=${empl.id},startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a>
+                                    <a th:case="Ausfallzeit" class="btn btn-default btn-xs btn-block btn-ausfall"
+                                       th:href="@{'/schedule'(startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a>
+                                    <a th:case="Ausfallzeit" class="btn btn-default btn-xs btn-block btn-info"
+                                       th:href="@{'/schedule'(startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a>
+                                    <!--a th:case="Nicht angegeben" class="btn btn-default btn-xs btn-block"
+                                       th:href="@{'/schedule'(startDate=${element.interval.start},endDate=${element.interval.end})}">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </a-->
+                                </th:block>
+                            </td>
+                        </th:block>
+                    </th:block>
+                </tr>
+                <th:block th:if="${monthly == null}" th:each="subRow:${row.subRows}">
+                    <tr th:with="project=${subRow.getKey()}" class="collapse" th:classappend="'details'+${empl.id}">
+                        <td></td>
+                        <td>
+                            <a th:unless="${project.id == -1}" th:text="${project.name}"
+                               th:href="@{'/singleproject'(id=${project.id})}"></a>
+                        </td>
+                        <th:block th:each="element:${subRow.getValue()}">
+                            <td th:colspan="${element.weekSpan}" class="text-center bordered">
+                                <th:block th:fragment="elementContents(subRow.getValue())">
+                                    <th:block th:unless="${element.status == null}"
+                                              th:switch="${#strings.toString(element.status)}">
+                                        <a th:case="Disponierbar" th:classappend="${subRow.getValue()} ? 'btn-danger'"
+                                           th:href="@{'/worksOnForm'(emplId=${empl.id}, startDate=${element.interval.start}, unitId=${empl.organisationUnitId})}"
+                                           class="btn btn-default btn-xs btn-block">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </a>
+                                        <div th:case="Geblockt" class="btn-group btn-group-xs btn-block" role="group">
+                                            <a class="btn btn-default btn-warning col-md-10" data-toggle="tooltip"
+                                               data-html="true" th:text="${element.projects[0].name}"
+                                               th:href="@{'/singleproject'(id=${element.projects[0].id})}"
+                                               th:title="${element.workload} + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'"></a>
+                                            <a class="btn btn-default btn-warning col-md-2"
+                                               th:href="@{'/worksOnForm'(worksOnId=${element.worksOnId}, unitId=${empl.organisationUnitId})}">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                        </div>
+                                        <div th:case="Disponiert" class="btn-group btn-group-xs btn-block" role="group">
+                                            <a class="btn btn-default btn-success col-md-10" data-toggle="tooltip"
+                                               data-html="true" th:text="${element.projects[0].name}"
+                                               th:href="@{'/singleproject'(id=${element.projects[0].id})}"
+                                               th:title="${element.workload} + '/' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'"></a>
+                                            <a class="btn btn-default btn-success col-md-2"
+                                               th:href="@{'/worksOnForm'(worksOnId=${element.worksOnId}, unitId=${empl.organisationUnitId})}">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                        </div>
+                                        <a th:case="Ausfallzeit" class="btn btn-default btn-xs btn-ausfall btn-block"
+                                           th:href="@{'/worksOnForm'(worksOnId=${element.worksOnId}, unitId=${empl.organisationUnitId})}">
+                                            <span th:text="${#strings.toString(element.status)}"></span>
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </a>
+                                        <a th:case="Angeboten" class="btn btn-default btn-xs btn-info btn-block"
+                                           th:href="@{'/worksOnForm'(worksOnId=${element.worksOnId}, unitId=${empl.organisationUnitId})}">
+                                            <span th:text="${#strings.toString(element.status)}"></span>
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </a>
+                                        <a th:case="Nicht angegeben" class="btn btn-default btn-xs btn-block"
+                                           th:href="@{'/worksOnForm'(worksOnId=${element.worksOnId}, unitId=${empl.organisationUnitId})}">
+                                            <span th:text="${#strings.toString(element.status)}"></span>
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </a>
+                                    </th:block>
+                                    <button th:if=" ${element.status == null}"
+                                            th:title="${element.workload} + '/ ' + ${row.employee.workSchedule} + ' &lt;sup&gt;h&lt;/sup&gt;/&lt;sub&gt;w&lt;/sub&gt;'"
+                                            class="btn btn-default btn-xs btn-block" data-toggle="tooltip"
+                                            data-html="true">
+                                        <i class="glyphicon glyphicon-menu-hamburger"></i>
+                                    </button>
+                                </th:block>
+                            </td>
+                        </th:block>
+                    </tr>
+                </th:block>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modal-container-784526" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Zeitraum festlegen
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <label for="datepicker">Startdatum:</label>
+                    <br/>
+                    <input type="text" id="datepicker"/>
+                    <div id="selected"></div>
+                    <br/>
+                    <label for="datepicker">Enddatum:</label>
+                    <br/>
+                    <input type="text" id="datepicker2"/>
+                    <div id="selecte"></div>
+                    <br/>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success btn-sm active" id="week">
+                            <em class="glyphicon glyphicon-zoom-in"></em> Wochentakt
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" id="month">
+                            <em class="glyphicon glyphicon-zoom-out"></em> Monatstakt
+                        </button>
+
+                    </div>
+
+                    <br/><br/>
+                    <button type="button" class="btn btn-default" id="updateme">Auswählen</button>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Abbrechen
+                    </button>
+                    <a id="customDateLink" href="#" class="btn btn-success disabled" role="button">
+                        Anwenden</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="btn-toolbar" style="padding-bottom: 1em;" id="origin">
+        <div class="btn-group ">
+            <a id="prevMonthLink" href="#" class="btn btn-default" role="button" th:text="#{domain.schedule.lastMonth}">
+                <em class="glyphicon glyphicon-chevron-left"></em> Voriger Monat
+            </a>
+            <a id="nextMonthLink" href="#" class="btn btn-default" role="button" th:text="#{domain.schedule.nextMonth}">
+                Nächster Monat <em class="glyphicon glyphicon-chevron-right"></em>
+            </a>
+
+            <div class="btn-group" role="group">
+            <a href="/schedule?monthly=true" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" th:text="#{domain.schedule.furtherTimePeriods}">
+                weitere Zeiträume <span class="caret"></span>
+            </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a id="actualMonthLink" href="#">Aktueller Monat</a></li>
+                    <li><a id="3monthsLink" href="#">3 Monate</a></li>
+                    <li><a id="6monthslink" href="#">6 Monate</a></li>
+                    <li><a id="thisYearLink" href="#">Jahresansicht</a></li>
+                </ul></div>
+            <a id="modal-784526" href="#modal-container-784526" class="btn btn-success" role="button" th:text="#{domain.schedule.setTimePeriod}"
+               data-toggle="modal"><span class="glyphicon glyphicon-search"></span> Zeitraum
+                festlegen</a></div>
+
+        <div class="btn-group" style="float: right;">
+            <a id="weekview" href="#" class="btn btn-success active" th:text="#{domain.schedule.weeklyView}">
+                <em class="glyphicon glyphicon-zoom-in"></em> Wochentakt
+            </a>
+            <a id="monthview" href="#" class="btn btn-default" th:text="#{domain.schedule.monthlyView}">
+                <em class="glyphicon glyphicon-zoom-out"></em> Monatstakt
+            </a>
+
+        </div>
+
+    </div>
+    <h2>
+
+    </h2>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <h2><em class="glyphicon glyphicon-info-sign"></em> LEGENDE</h2>
+                <br />
+                <button class="btn btn-danger"> </button> <span th:text="#{domain.schedule.disposedEmployees}">Mitarbeiter disponierbar</span><br />
+                <button class="btn btn-warning">  </button> <span th:text="#{domain.schedule.blockedEmployees}">Mitarbeiter geblockt</span><br />
+                <button class="btn btn-success">  </button> <span th:text="#{domain.schedule.workingEmployees}">Mitarbeiter disponiert</span><br />
+                <button class="btn btn-more">  </button> <span th:text="#{domain.schedule.overBookedEmployees}">überbuchte Mitarbeiter</span><br />
+                <button class="btn btn-ausfall">  </button> <span th:text="#{domain.schedule.timeOfNonuse}">Ausfallzeit</span><br />
+                <button class="btn btn-info">  </button> <span th:text="#{domain.schedule.offeredEmployees}">Mitarbeiter angeboten</span>
+            </div>
+            <div class="col-md-4">
+                <h2 th:text="#{domain.schedule.statistic}">
+                    <em class="glyphicon glyphicon-stats"></em> STATISTIK
+                </h2>
+                <p>
+                <ul>
+                    <li>
+                        <div th:text="#{domain.schedule.underBookedProjects} + ' ' +${underbookedPrj}"> Zahl</div>
+                        <ul>
+                            <div th:text="#{domain.schedule.pipeline} + ' ' +${underbookenPipeline}"> Maximal so gross wie
+                                oben
+                            </div>
+                        </ul>
+                    </li>
+                    <li>
+                        <div th:text="#{domain.schedule.totalOngoingProjects}+ ' ' +${projectCount}"> 3</div>
+                    </li>
+                    <li>
+                        <div th:text="#{domain.schedule.underBookedEmployees}+ ' ' +${underbookedEm}"> 2</div>
+                    </li>
+                    <li>
+                        <div th:text="#{domain.schedule.totalEmployees} + ' ' + ${employeeCount}"> 5</div>
+                    </li>
+                </ul>
+                </p>
+                
+                </div>
+                <div class="col-md-4">
+                    <h2 th:text="#{domain.schedule.printView}"><em class="glyphicon glyphicon-print"></em> DRUCKANSICHT</h2>
+                    <br/>
+                    <span th:text="#{domain.schedule.pdfIntro}">Hier können Sie sich die aktuelle Planansicht als PDF-Bericht anzeigen lassen. Ansicht im Monatsstakt enthällt zusätzliche Statistiken über die Organisationseinheit der Monate.</span>
+                    <br/>
+                    <br/>
+                    <a id="pdfVerticalLink" th:if="${monthly == null}" th:href="@{'/files/{name}/vertical/{style}'(name=${username}, style='normal')}" class="btn btn-default"
+                       role="button" th:text="#{domain.schedule.pdfView}">
+                        <em class="glyphicon glyphicon-print"></em> Zur PDF-Ansicht
+                    </a>
+                    <a id="pdfVerticalLinkMonthly" th:unless="${monthly == null}" th:href="@{'/files/{name}/vertical/{style}'(name=${username}, style='monthly')}" class="btn btn-default"
+                       role="button" th:text="#{domain.schedule.pdfView}">
+                        <em class="glyphicon glyphicon-print"></em> Zur PDF-Ansicht
+                    </a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</th:block>
+
+
+</body>
+</html>

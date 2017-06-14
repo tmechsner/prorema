@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="PROREMA - ${project.name}"></title>
+
+    <script src="/js/Chart.bundle.min.js"></script>
+    <script th:inline="javascript">
+        window.onload = function () {
+            var ctx = document.getElementById("aufteilungschart");
+            var values = /*[[${values}]]*/ [];
+            var labels = /*[[${labels}]]*/ [];
+
+            var aufteilungschart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: values,
+                        backgroundColor: ["#F7464A",
+                            "#46BFBD",
+                            "#FDB45C",
+                            "#949FB1",
+                            "#4D5360",
+                            "#99DEAB",
+                            "#CDDA76",
+                            "#65A3E4"
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    legend: {
+                        position: 'top',
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+
+                        }
+                    },
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h1 th:text="#{domain.project}+' '+#{domain.profil}">
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:unless="${project == null}" class="jumbotron container-fluid">
+
+        <div class="col-md-10">
+            <h2>
+                <b th:text="${project.name}"></b>
+            </h2>
+            <a th:href="@{/client(id=${client.id})}">
+                <h3 th:text="${client.name}">
+                </h3>
+            </a>
+            <h3 th:text="(${startDate != null} ? ${startDate} : 'N. A.') + ' - ' + (${endDate != null} ? ${endDate} : 'N. A.')"></h3>
+        </div>
+
+        <div class="col-md-2">
+            <a th:if="${project.running == false}" class="btn btn-info btn-large"
+               th:href="@{/convert(id=${project.id})}" th:text="#{domain.singleproject.convertProject}">Projekt konvertieren</a>
+            <br/>
+            <br/>
+            <a class="btn btn-success btn-large" th:href="@{/projectform(id=${project.id})}" th:text="#{domain.singleproject.editProject}">Projekt
+                bearbeiten</a>
+            <br/>
+            <br/>
+            <a class="btn btn-success btn-large"
+               th:href="@{'/schedule'(projectId=${project.id}, fromDate=(${project.startDate != null} ? ${project.startDate}), toDate=(${project.endDate != null} ? ${project.endDate}))}" th:text="#{domain.singleproject.showInScheduleView}">In
+                Planungsansicht ansehen</a>
+            <br />
+            <br />
+            <a id="modal-784526" href="#modal-container-784526" class="btn btn-success" role="button" data-toggle="modal" th:text="#{domain.singleproject.displayHistory}"> Verlauf anzeigen</a>
+        </div>
+    </div>
+
+    <div th:unless="${project == null}" class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.projectManager}">Projektleiter
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4>
+
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <a th:href="@{/userprofile(id=${projectManager.id})}">
+                                <h4 th:text="${projectManager.nameTitle}+ ' ' +${projectManager.firstName}+ ' ' +${projectManager.lastName}">
+                                </h4>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4>
+                                Team
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4>
+
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="tm:${teamMembers}">
+                                <div class="list-group-item">
+                                    <a th:href="@{'/schedule'(emId=${tm.id}, fromDate=(${project.startDate != null} ? ${project.startDate}), toDate=(${project.endDate != null} ? ${project.endDate}))}">
+										<span class="fa-stack">
+                            			<i class="glyphicon glyphicon-th-list"></i>
+                        				</span>
+                                    </a>
+                                    <a th:href="@{'/userprofile'(id=${tm.id})}">
+                                        <font color='#00b04e'
+                                              th:text="${tm.nameTitle}+${tm.firstName}+' '+${tm.lastName}"></font>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <a class="btn btn-success btn-large"
+                               th:href="@{'/worksOnForm' (prjId=${project.id}, unitId=${project.orgaUnitId})}" th:text="#{domain.singleproject.addEmployee}">Mitarbeiter
+                                hinzufügen</a>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4>
+                                Status
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080' th:text="${project.status}"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.area}">
+                                Bereich
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <a th:href="@{/areaprofile(id=${orgaUnit.id})}"
+                                   th:text="${orgaUnit.name}+' - '+${orgaUnit.description}"></a>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.contact}">
+                                Kontakt
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <a th:href="@{/contact(id=${contact.id})}">
+                                <h4 th:text="${contact.nameTitle}+ ' ' +${contact.firstName}+ ' ' +${contact.lastName}">
+                                </h4>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.demandedSkills}">
+                                Geforderte Skills
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="skill:${fullyCoveredSkills}">
+                                <a class="list-group-item" th:href="@{/skill(id=${skill.left.id})}">
+                                    <font color='#505050'
+                                          th:text="${skill.left.name} + ' (' + ${skill.right} + ')'"></font>
+                                </a>
+                            </div>
+                            <div class="list-group" th:each="skill:${lowCoveredSkills}">
+                                <a class="list-group-item list-group-item-warning"
+                                   th:href="@{/skill(id=${skill.left.id})}">
+                                    <font color='#505050'
+                                          th:text="${skill.left.name} + ' (' + ${skill.right} + ')'"></font>
+                                </a>
+                            </div>
+                            <div class="list-group" th:each="skill:${notCoveredSkills}">
+                                <a class="list-group-item list-group-item-danger"
+                                   th:href="@{/skill(id=${skill.left.id})}">
+                                    <font color='#505050'
+                                          th:text="${skill.left.name} + ' (' + ${skill.right} + ')'"></font>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.amountOfWork}">
+                                Arbeitsaufwand
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080'
+                                      th:text="${project.menDays != null} ? ${project.menDays} + ' d' : 'Nicht angegeben'"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.cover}">
+                                Abdeckung
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080'
+                                      th:text="${coverage} +' d ('+(${percent != null} ? ${percent} : '0') + ' %)'"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.volume}">
+                                Volumen
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080'
+                                      th:text="${project.potentialProjectVolume != null} ? ${project.potentialProjectVolume} + ' €' : 'Nicht angegeben'"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.probability}">
+                                Wahrscheinlichkeit
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080'
+                                      th:text="${project.conversionProbability != null} ? ${project.conversionProbability} + ' %' : 'Nicht angegeben'"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.weightedVolume}">
+                                Gewichtetes Volumen
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>
+                                <font color='#808080' th:text="${project.weightedProjectVolume != null} ? ${project.weightedProjectVolume} + ' €' : 'Nicht angegeben'"></font>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.singleproject.description}">
+                                Beschreibung
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="thumbnail" style="padding-top: 0px; padding-bottom: 0px;">
+                                <div class="caption" style="padding-top: 0px; padding-bottom: 0px;">
+                                    <h4><font color='#808080' th:text="${project.description}"></font></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="height:40px;"></div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <h4 th:text="#{domain.singleproject.apportionmentOfProjects}">Projektaufteilung</h4>
+                    <br/>
+                    <canvas id="aufteilungschart" width="340" height="400"></canvas>
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div th:replace="layout/fragments/historyPopUp :: historyPopUp">
+        static stuff
+    </div>
+
+</div>
+</body>
+</html>

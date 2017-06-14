@@ -1,0 +1,206 @@
+TECHNICAL DOCUMENTATION
+------------------------
+
+To make customization easier, we have documented all interesting technical Feautres and how they work here.
+Should you ever customize your programme, please check here for useful information on the basic features.
+
+Features discussed here:
+
+1. Domain & Database Model
+2. Schedule build-up
+3. PDF creation
+4. Employee Recommendation System
+5. Version Control
+6. Locking
+7. Archiving
+8. Security & Rights-Management
+
+
+DOMAIN & DATABASE MODEL
+------------------------
+
+Both models can be found in this folder. Please check them before customizing something, as the relations can easily be compromised.
+(Filenames: domain-model.pdf & )
+
+
+SCHEDULE BUILD-UP
+------------------
+
+At the beginning: WorksOns are objects assigning projects to employees
+with a workload, a status, a start date and an end date(Just to point out the relevant usage
+of converting them into a view).
+When the planning view should get created, the surface uses a method which needs a date interval
+and a list of employees, which should be visible in the planning view.
+
+Now this method searches WorksOns for each employee.
+These are getting sorted to their projects and all of them are included in the workload row.
+After this the workload row gets condensed, so it has no overlaps or encloses anymore.
+At the end the method fills the gaps between certain worksOns in every project row and the workload row.
+Now they get combined to an object per employee. All these objects for each employee are heading back to the surface.
+
+For each employee, the surface creates a workload row and specific project rows for each project.
+The workload row gets colours which depend on the workload the elements in the row carry.
+Any project row displays the statues the worksOns have included.
+
+
+PDF CREATION
+-------------
+
+Based on com.lowagie/itext/2.1.7 (License: LGPL, website: http://www.lowagie.com/iText/)
+
+The pdf creation uses itext to create the pdf.
+Later on, this Document [1] will be parsed into a byte[] and as ByteArrayInputStream copied to the Outputstream of the HttpServletResponse.
+The contentType of this response is set to "application/pdf", thus the browser will handle the actual view of the pdf file.
+
+Depending on the schedule view that is selecet while the 'print' button is pressed, the pdf will either show the weekly or the monthly view.
+The whole schedule is resized to fit onto a rotated DIN A4 Page. Intention hereby is easier printing.
+Additionally there is a hidden feature, thus in the URL you can replace "vertical" with "horizontal", resulting in a non rotated pdf with the same content, again resized to fit this new format.
+
+[1]: com.lowagie.text.Document
+
+
+EMPLOYEE RECOMMENDATION SYSTEM
+-------------------------------
+
+For the recommendation system, the required skills of the selected project are compared with the skills of the employees that already work on the project.
+By that the required skills are divided into three categories:
+Skills that are not covered by any employee yet, skills partially covered by employees (the skill level is lower than required) and fully covered skills (the skill level is at least the required level).
+According to his skills, each employee, which can be added to the project is assigned a numerical value, that is composed as follows:
+
+For each skill, the employee has, which is not covered, the result of the formula 94 - (requested skill level - actual skill level) x 3[2] is added to the employees score (min. 88, max. 100 points).
+For each skill, the employee has, which is partially covered, the result of the formula 55 - (requested skill level - actual skill level) x 5[2] is added to the employees score (min. 45, max. 65 Points).
+For each skill, the employee has, which is already fully covered, the result of the formula 25 - (requested skill level - actual skill level) x 3[2] is added to the employees score (min. 18, max 30 points).
+
+[2]: Possible skill levels are Expert (= 2), Advanced (= 1), Beginner (= 0)
+
+
+VERSION CONTROL
+----------------
+
+Every Entity class derives from a superclass called "auditable Entity" which has a Set of changelogEntrys.
+For the Entities: Employee, Project, OrganisationUnit, Client and Contact this set is used in the following way.
+If an action (CREATE, UPDATE, DELETE) is performed, a changelogEntry that holds information about the user, the date, the changed field, the action and the old and new value is added to the set of changelog entries of the changed entity.
+The changelogs are also given to the domain objects and thus available in the front end, where they can be viewed by clicking the history button.
+
+
+Locking
+--------
+
+With the locking system we want to make sure, that changes are not overwritten by other users.
+We have two different sorts of locking. The worksonlocking for the schedule view and the simple locking for single locks like one project.
+Every lock saves the id from the current user, which lock (simple or worksonlmck) and the start time.
+Every lock is save for three minutes. Although we have a daily deletion time for all open locks at 2:00 AM.
+
+
+ARCHIVING
+----------
+
+The archiving offers the possibility to clean up the database. Its the only way to delete Entities from there, because its consistent and restorable.
+All Employees and Projects and there relations are stored, which were older then the selected archiveDate. Older means here, that they stopped working or were finished before this date.
+
+The Administrator can control the archiving with the “/archiveform” - webpage. He has the options to save or to load and to select the time-period.
+At the bottom of the Page is a table with all saved Files to give an overview of the archive.
+The “ArchiveController” contains the two main-methods of the archiving, “writeArchive” and “readArchive”.
+
+ - write-method: Select all Entities to be archived an create n different files, one for each year from selected archiveDate to the oldest date from an Entity.
+   Also it removes all ChangeLogs, which where related to the stored Entities, permanent.
+
+ - read-method: Reads all Entities from the selected Files and stores them into the database. It select n files from the chosen readDate to the most recent one.
+
+The Archiving works with JSON and stores the Entities in an String Array which contains 6 JsonStrings of Entity-Lists. The String-Array is then writen in a File like “backup_from_YYYY.json”.
+
+
+SECURITY & RIGHTS-MANAGEMENT
+-----------------------------
+
+Here we explain how the access decision works. This document is rather technical and is intended for administrator, who want
+to reconfigure the permissions.
+
+Every user has a login-name and a password and exactly one position. Those are stored in the Database, the password hashed with BCrypt.
+If the user is allowed to do something in the system, e.g. create new projects is primary determined by his position.
+
+The decision if somebody is allowed to access something is done per database-entity.
+For each entity there is an AccessDecider object in the class AccessDeciderPool.
+Whenever somebody tries to do something with an object, the services asks the responsible AccessDecider in the pool.
+
+ACCESSDECIDER
+--------------
+
+Each AccessDecider has a chain of Deciders. Access is granted if and only if one Decider allows the access.
+A full list of all currently implemented Deciders is supplied.
+
+To make it easy to reconfigure the AccessDeciders, the program load a default config file "config.file" at startup.
+There you can specify for each AccessDecider in the pool witch deciders are loaded into the chain. The grammar of the file is described in the documentation.
+
+If no config file is found, a build in default config is loaded.
+
+To prevent, that you run with a defect config, the program will not start if the file contains syntax errors.
+As it may causes difficulties to change the permission config at runtime, this is not supported e.g. if you want to change the config you have to restart the server.
+
+
+- Notes -
+
+Some configuration may be problematic. For example, if you deny someone to show clients, you also deny him to view the project list, as the clients(which you are not allowed to see) are shown in the project list.
+So we recommend to grant viewing permission to most users to prevent such pitfalls.
+
+LIST OF DECIDERS
+-----------------
+
+-- Allow --
+
+Allows every user with a priority higher or equal than the given to do all actions with priority lower or equal than the given priority.
+ * Allow(Pos-Priorität,Act-Priorität)
+
+-- AllowPrio --
+
+Allows every user, who has the given at least the given priority to do the given action.
+ * AllowPrio(*action*,*prio*)
+
+-- AllowPos --
+
+Allows every user, who has the given at least the given priority to do the given action or every action.
+ * AllowPos(*pos*)
+ * AllowPos(*pos*,*action*)
+
+-- AllowAction --
+
+Allows the user to execute the given action.
+
+-- AllowAll --
+
+Allows every user to do every action on the objects decided by the given decider.
+ * OwnThings (fixed)
+
+Allows to the user to do everything with their own objects.
+The parameter determines witch kind of object are handled.
+This decider works only on projects and employees. If used for other objects, everything will be denied.
+
+OwnThings(projects)
+OwnThings(employee)
+
+
+Syntax of the Security Configuration File
+------------------------------------------
+
+accessDecider:
+poolObject:_deciderList_\n
+
+deciderList:
+decider
+deciderList decider
+
+poolObject:
+one Field of AccessDeciderPool
+
+decider:
+deciderClass(deciderParameters)
+
+deciderClass:
+one valid Class from security.deciders
+
+deciderParameters:
+deciderParameter
+deciderParameters,_deciderParameters_
+
+deciderParameter:
+A String, which has a different meaning for each decider.

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PROREMA - Projekt Orange</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="Jonathan Jakob">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#"><img src="img/reply.png" width="120" height="30"></a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="home.html">Home</a>
+						</li>
+						<li>
+							<a href="shedule-sexy.html">Planung</a>
+						</li>
+						<li class="active">
+							<a href="projects.html">Projekte</a>
+						</li>
+						<li>
+							<a href="usersgrid.html">Mitarbeiter</a>
+						</li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Optionen<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="userprofil.html">Profil</a>
+								</li>
+								<li>
+									<a href="#">Hilfe</a>
+								</li>
+								<li>
+									<a href="userform.html">Mitarbeiter hinzufügen</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Einstellungen</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="index.html">Abmelden</a>
+						</li>
+						<div class="col-md-1">
+						</div>
+					</ul>
+				</div>
+		</div>
+	</div>		
+				
+		<div class="row">
+			<div class="col-md-12">
+				<h2><font color='#FFFFFF'>dada</font></h2>
+			</div>
+		</div>	
+				
+				
+			</nav>
+    <div class="jumbotron container-fluid">
+		<div class="row">
+			
+		</div>	
+		<div class="col-md-1">
+			   
+		</div>
+		<div class="col-md-6">
+			
+				<h2><b>
+					Projekt Orange</b>
+				</h2>
+				<h3>
+					<font color='#808080'>
+					ABC - GmbH 
+					</font>
+				</h3>
+				<h3>
+					01.04.2016 - 01.08.2016
+				</h3>
+			
+		</div>
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<br /> 
+			<br />
+			<button type="button" class="btn btn-block active btn-lg btn-success">
+				Bearbeiten
+			</button>
+		</div>
+		<div class="col-md-1">
+			   
+		</div>
+		
+</div>
+
+<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-8">
+
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>Projektleiter 
+				</h4>   
+		</div>
+		<div class="col-md-1">
+			<h4>	
+			
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			
+			<font color='#808080'><img src="img/Projektleiter.png" alt="default" width="70" height="70"> Bob Baumeister
+			</font>
+		</div></div>
+	
+		<div class="col-xs-12" style="height:40px;"></div>
+
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Team 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h4>	
+			
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<font color='#808080'>
+			<img src="img/Mitarbeiter1.png" alt="default" width="70" height="70"> Hans Meier
+			  
+		</div>
+		<div class="col-md-1">
+			
+			<img src="img/Mitarbeiter2.png" alt="default" width="70" height="70"> Marion Kowalski
+			   
+		</div>
+		<div class="col-md-1">
+			
+			<img src="img/Mitarbeiter3.png" alt="default" width="70" height="70"> Bart Bobstermann
+			</font>   
+		</div>
+		<div class="col-md-1">
+			<h4>
+					 
+			</h4>   
+		</div>
+		<div class="col-md-2">
+			   
+		</div>
+	</div>
+	
+	<div class="col-xs-12" style="height:40px;"></div>
+
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Standort 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-md-1">
+			<h4>
+				<font color='#808080'>
+				Bielefeld
+				</font>
+			</h4>   
+		</div>
+	</div>
+	
+	<div class="col-xs-12" style="height:40px;"></div>
+
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Bereich 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-md-4">
+			<h4>
+				<font color='#808080'>
+				Bereich 1: Max Mustermann
+				</font>
+			</h4>   
+		</div>
+	</div>
+	
+	<div class="col-xs-12" style="height:40px;"></div>
+	
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Ansprechpartner 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				<font color='#808080'>
+				Thomas Test</h4> 
+				info@thomastest.de<br>
+				0176 91332 299
+				</font>
+			  
+		</div>
+	</div>
+	
+	<div class="col-xs-12" style="height:40px;"></div>
+	
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Geforderte Skills
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-sm-4">
+								
+							<table class="table">
+							    <thead>
+							      <tr>
+								<th><font color='#808080'>Skill</font></th>
+								<th><font color='#808080'>Level</font></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr class="info">
+								<td><font color='#808080'>Java</font></td>
+								<td><font color='#808080'>Expert</font></td>
+							      </tr>
+							      <tr class="info">
+								<td><font color='#808080'>Datenbanken</font></td>
+								<td><font color='#808080'>Advanced</font></td>
+							      </tr>							   
+							    </tbody>
+							  </table>
+							</div>
+	</div>
+	
+		<div class="col-xs-12" style="height:40px;"></div>
+	
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Wochenstunden 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				<font color='#808080'>
+				160 h
+				</font>
+			</h4>   
+		</div>
+	</div>
+	
+		<div class="col-xs-12" style="height:40px;"></div>
+	
+	<div class="row">
+		<div class="col-md-2">
+			   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				Abdeckung 
+			</h4>   
+		</div>
+		<div class="col-md-1">
+			<h2>	
+			
+			</h2>   
+		</div>
+		<div class="col-md-2">
+			<h4>
+				<font color='#808080'>
+				100 %
+				</font>
+			</h4>   
+		</div><div class="col-xs-12" style="height:40px;"></div>
+	</div>
+	
+		</div>
+				<div class="col-md-4">
+				
+				<div class="jumbotron container-fluid">
+		<div class="row">
+			
+		</div>	
+		
+		<div class="col-md-12">
+			
+				<h2>
+					Verlauf
+				</h2>
+				
+					<font color='#808080'>
+					<li><b>28.03.16 08:45</b> - Max Mustermann hat Bereich geändert: Voriger Bereich "Bereich 2" - neuer Bereich "Bereich 1"
+					</li><br>
+					<li><b>26.03.16 13:05</b> - Max Mustermann hat Wochenstunden geändert: Voriger Wert "120 h" - neuer Wert "160 h"
+					</li><br>
+					<li><b>08.03.16 07:33</b> - Max Mustermann hat Projekt "Projekt Orange" angelegt.
+					</li>
+					
+					</font>
+				
+			
+		</div>
+				<h2>
+					<br />
+					<br />
+				</h2>		
+	</div>
+				</div>
+			</div>
+	
+	
+	
+		
+	
+	<div class="jumbotron container-fluid">
+		<div class="row">
+			
+		</div>	
+		<div class="col-md-1">
+			   
+		</div>
+		<div class="col-md-9">
+			
+				<h2>
+					Verlauf
+				</h2>
+				
+					<font color='#808080'>
+					<li><b>28.03.16 08:45</b> - Max Mustermann hat Bereich geändert: Voriger Bereich "Bereich 2" - neuer Bereich "Bereich 1"
+					</li><br>
+					<li><b>26.03.16 13:05</b> - Max Mustermann hat Wochenstunden geändert: Voriger Wert "120 h" - neuer Wert "160 h"
+					</li><br>
+					<li><b>08.03.16 07:33</b> - Max Mustermann hat Projekt "Projekt Orange" angelegt.
+					</li>
+					
+					</font>
+				
+			
+		</div>
+				<h2>
+					<br />
+					<br />
+				</h2>		
+	</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

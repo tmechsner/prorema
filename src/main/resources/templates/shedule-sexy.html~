@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PROREMA - Planungsmodul</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="Philip Buschmann">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/jquery.bootgrid.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Links und Script für die Tag-bar ----------------------------------------------------------------------------->
+    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">    
+    <link href="css/SouthStreet/jquery-ui.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+    
+
+
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#"><img src="img/reply.png" width="120" height="30"></a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="home.html">Home</a>
+						</li>
+						<li class="active">
+							<a href="shedule-sexy.html">Planung</a>
+						</li>
+						<li>
+							<a href="projects.html">Projekte</a>
+						</li>
+						<li>
+							<a href="usersgrid.html">Mitarbeiter</a>
+						</li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Optionen<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="userprofil.html">Profil</a>
+								</li>
+								<li>
+									<a href="#">Hilfe</a>
+								</li>
+								<li>
+									<a href="userform.html">Mitarbeiter hinzufügen</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Einstellungen</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="index.html">Abmelden</a>
+						</li>
+						<div class="col-md-1">
+						</div>
+					</ul>
+				</div>
+		</div>
+	</div>		
+				
+		<div class="row">
+			<div class="col-md-12">
+				<h2><font color='#FFFFFF'>dada</font></h2>
+			</div>
+		</div>	
+				
+				
+			</nav>
+			<div class="page-header">
+				<div class="row">
+				<div class="col-md-9">
+				<h1>
+					Planungsmodul <small>Der Auslastungsplan auf einen Blick</small>
+				</h1>
+				</div>
+				</div>
+		</div>
+
+		<!-- Tab-Bar mit Label und Clear-Button ----------------------------------------------------------------------------->
+		<div class="row">
+			<div class="col-md-1">
+				
+			</div>
+			<div class="col-md-10">
+				<label class="col-sm-1 control-label">
+					<p style="font-size:170%;"><b>Suche:</b></p>
+				</label>
+				<form class="col-md-10">					
+					<ul id="allowSpacesTags"></ul>
+				</form>
+				<label class="col-sm-1 control-label">
+					<a class="btn btn-success btn-md" href="#" onclick="$('#allowSpacesTags').tagit('removeAll');return false;" role="button">Alles löschen</a>
+				</label>
+			</div>
+			<div class="col-md-1">
+				
+			</div>
+		</div>
+		<!-- Tab-Bar mit Label und Clear-Button ----------------------------------------------------------------------------->			
+			
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">Alle Bereiche </a>
+				</li>
+				<li>
+					<a href="#"><span class="glyphicon glyphicon-list-alt"></span>   Bereich 1</a>
+				</li>
+				<li class=>
+					<a href="#"><span class="glyphicon glyphicon-book"></span>    Bereich 2</a>
+				</li>
+				<li class=>
+					<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>   Bereich 3</a>
+				</li>
+				<li class="dropdown pull-right">
+					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Filtern<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">Bereich</a>
+						</li>
+						<li>
+							<a href="#">Projekt</a>
+						</li>
+						<li>
+							<a href="#">Mitarbeiter</a>
+						</li>
+						<li class="divider">
+						</li>
+						<li>
+							<a href="#">Zeitraum</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+						
+					
+					<table id="grid-basic" class="table"  >
+				<thead>
+					<tr>
+						<th data-column-id="mitarbeiter">
+							Mitarbeiter
+						</th>
+						<th data-column-id="zeit1">
+							Diese Woche  <small>18.04. - 23.04.</small>
+						</th>
+						<th data-column-id="zeit2">
+							Nächste Woche  <small>25.04. - 30.04.</small>
+						</th>
+						<th data-column-id="zeit3">
+							Übernächste Woche  <small>02.05. - 07.05.</small>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+						<img src="img/Mitarbeiter1.png" class="img-circle"  width="40" height="40">
+						Max Mustermann <span class="glyphicon glyphicon-book"></span>
+						</td>
+						<td class="success">
+							Projekt Orange
+						</td>
+						<td class="danger">
+							
+						</td>
+						<td class="danger">
+							
+						</td>
+					</tr>
+					<tr>
+						<td id="special">
+						<img src="img/Mitarbeiter2.png" class="img-circle"  width="40" height="40">
+							Heidi von der Alb <span class="glyphicon glyphicon-shopping-cart"></span>
+						</td>
+						<td class="success">
+							Projekt Orange
+						</td>
+						<td class="success">
+							Projekt Orange
+						</td>
+						<td class="success">
+							Projekt Black
+						</td>
+					</tr>
+					<tr>
+						<td><img src="img/Mitarbeiter3.png" class="img-circle"  width="40" height="40">
+							Bob Baumeister <span class="glyphicon glyphicon-list-alt"></span>
+						</td>
+						<td class="success">
+							Projekt Blue
+						</td>
+						<td class="warning">
+							Projekt Blue
+						</td>
+						<td class="warning">
+							Projekt Black
+						</td>
+					</tr>
+					<tr>
+						<td><img src="img/Projektleiter.png" class="img-circle"  width="40" height="40">
+							John Doe <span class="glyphicon glyphicon-shopping-cart"></span>
+						</td>
+						<td class="warning">
+							Projekt Orange
+						</td>
+						<td class="success">
+							Projekt Black
+						</td>
+						<td class="success">
+							Projekt Black
+						</td>
+					</tr>
+					<tr>
+						<td><img src="img/Mitarbeiter4.png" class="img-circle"  width="40" height="40">
+							Jane Doe <span class="glyphicon glyphicon-list-alt"></span>
+						</td>
+						<td class="danger">
+							
+						</td>
+						<td class="success">
+							Projekt Black
+						</td>
+						<td class="success">
+							Projekt Blue
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+			
+			<div class="row">
+				<div class="col-md-9">
+					<br />
+					<br />
+				</div>
+			</div>
+						
+						
+					<div class="btn-group">
+				 
+				<button class="btn btn-default" type="button">
+					<em class="glyphicon glyphicon-align-left"></em> Dieser Monat
+				</button> 
+				<button class="btn btn-default" type="button">
+					<em class="glyphicon glyphicon-align-center"></em> Nächster Monat
+				</button> 
+				<button class="btn btn-default" type="button">
+					<em class="glyphicon glyphicon-align-justify"></em> Alles
+				</button> 
+				<button class="btn btn-default" type="button">
+					 Zeitraum festlegen
+				</button>
+			</div>	
+			
+				<h2>
+				     
+					</h2>	
+
+	<div class="jumbotron">
+	<div class="row">
+		<div class="col-md-6">
+			<h2>
+			<em class="glyphicon glyphicon-signal"></em>	STATISTIK
+			</h2>
+			<p>
+				<ul>
+				<li><b>Mitarbeiter-Auslastung:</b> 84% </li>
+				<li><b>Unterbuchte Projekte:</b> 0</li>
+				<li><b>Unterbuchte Mitarbeiter:</b> 2</li>
+				<li><b>Projekte insgesamt:</b> 3</li>
+				<li><b>Mitarbeiter insgesamt:</b> 5</li>
+			</p>
+			<p>
+				<br />
+				
+				<a class="btn" href="#">Weitere Statistiken »</a>
+			</p>
+		</div>
+		<div class="col-md-6">
+			<h2>
+				PROJEKTE
+			</h2>
+			<p>
+				Um Projekte umzuverteilen und neue Projekte hinzuzufügen, benutzen Sie bitte die Projektübersicht.
+			</p>
+			<p>
+				<br />
+					<br />
+				<a class="btn" href="projects.html">Zur Projektübersicht »</a>
+				
+			</p>
+		</div>
+	</div>
+	</div>
+</div>
+    <script>
+        $(function(){
+            var sampleTags = ['Heidi von der Alb', 'Bob Baumeister', 'Jon Doe', 'Jane Doe', 'Projekt Orange', 'Projekt Blue', 'Projekt Black', 'Bereich 1', 'Bereich 2', 'Bereich 3', 'Java', 'HTML', 'C++', 'PHP', 'Datenbanken', 'Expert', 'Beginner', 'Max Mustermann'];
+
+            $('#allowSpacesTags').tagit({
+                availableTags: sampleTags,
+                allowSpaces: true
+            });
+        });
+    </script>
+    <!--script src="js/jquery.min.js"></script-->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.bootgrid.fa.js"></script>
+    <script src="js/jquery.bootgrid.fa.min.js"></script>
+    <script src="js/jquery.bootgrid.js"></script>
+  </body>
+</html>

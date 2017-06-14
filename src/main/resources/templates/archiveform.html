@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Archivierung</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="/js/bootstrap-select.min.js"></script>
+
+    <style>
+
+        .page-header {
+            margin-bottom: 140px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 align="center"> Archivierung der Datenbank </h1>
+        </div>
+        <br /><br /><br /><br /><br /><br />
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <p>
+                Die Archivierung dient dazu, die Datenbank aufzuräumen und veraltete Daten in einem Dateiarchiv zu speichern.
+                Dabei werden alle Mitarbeiter die vor oder während des ausgewählten Jahres ihre Arbeit beendet haben und alle Projekte die vor oder während des ausgewählten Jahres beendet wurden, zusammen mit ihren Eigenschaften, aus der Datenbank gelöscht und in mehreren JSON – Files gespeichert.
+            </p>
+            <p style="color:red;">
+                Wichtig: Sollten nachträglich noch Projekte oder Mitarbeiter mit einem bereits archivierten Enddatum hinzugefügt werden, muss das Archiv bis zu diesem Datum eingelesen und kann erst danach wieder abgespeichert werden, sonst kann es zu Datenverlust kommen !
+            </p>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <form class="form-horizontal" role="form" action="#" th:action="@{/archiveform}" th:object="${newArchiveCmd}"
+                  method="post">
+                <div class="jumbotron">
+
+                    <div class="form-group">
+
+                        <label class="col-sm-3 control-label">Aktion auswählen <font color="red">*</font></label>
+                        <div class="col-sm-8">
+                            <select id="selectAction" th:field="*{action}" class="selectpicker show-tick form-control" title="Aktion wählen.." data-style="btn-success">
+                                <option value="write">Archivieren</option>
+                                <option value="read">Einlesen</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+
+                        function addWriteOptions(currentYear) {
+                            $("#labelTime").remove();
+                            $("#divTime").remove();
+                            $("#selectTime").append('<label id="labelTime" class="col-sm-3 control-label">Zeitraum der Archivierung <font color="red">*</font></label>'+
+                                    '<div id="divTime" class="col-sm-8">'+
+                                    '<select id="time" th:field="*{date}" class="form-control">'+
+                                    '<option value="5">'+ (currentYear-6).toString() +' und früher</option>'+
+                                    '<option value="4">'+ (currentYear-5).toString() +' und früher</option>'+
+                                    '<option value="3">'+ (currentYear-4).toString() +' und früher</option>'+
+                                    '<option value="2">'+ (currentYear-3).toString() +' und früher</option>'+
+                                    '</select>'+
+                                    '</div>');
+                        }
+
+                        function addReadOptions(currentYear) {
+                            $("#labelTime").remove();
+                            $("#divTime").remove();
+                            $("#selectTime").append('<label id="labelTime" class="col-sm-3 control-label">Einlesen aller Daten ab <font color="red">*</font></label>'+
+                                    '<div id="divTime" class="col-sm-8">'+
+                                    '<select id="time" th:field="*{date}" class="form-control">'+
+                                    '<option th:each="year:${years}" th:value="${year}" th:text="${year}">Einlesen</option>'+
+                                    '</select>'+
+                                    '</div>');
+                        }
+                    </script>
+
+                    <div class="form-group" id="selectTime">
+
+
+                    </div>
+
+                </div>
+
+                <br/>
+                <button type="submit" class="btn btn-success btn-block btn-lg" th:text="#{form.do}">Ausführen</button>
+            </form>
+
+            <br/><br/>
+
+            <div class="jumbotron">
+                <div>
+                    <table class="table table-striped" id="archiveFile">
+                        <thead>
+                        <tr>
+                            <th class="col-md-5">
+                                Dateien im Archiv
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody th:if="${archiveFiles} != null">
+                            <tr th:each="filename:${archiveFiles}">
+                                <td class="text-center" th:text="${filename}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var activities = document.getElementById("selectAction");
+
+        var currentYear = moment().format('YYYY');
+
+
+        activities.addEventListener("change", function() {
+            if(activities.value == "write")
+            {
+                addWriteOptions(currentYear);
+            }
+            if (activities.value == "read")
+            {
+                addReadOptions(currentYear);
+            }
+        });
+
+    </script>
+
+
+    <br/><br/><br/>
+</div>
+
+</body>
+</html>

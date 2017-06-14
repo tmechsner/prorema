@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      xmlns:mail="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<table th:fragment="contactList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.contact.name}">Name</th>
+        <th th:text="#{domain.contact.email}">E-Mail</th>
+        <td th:text="#{domain.contact.tel}">Telefon</td>
+        <td th:text="#{domain.contact.addr}">Adresse</td>
+        <td th:text="#{domain.client}">Klient</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contact:${contacts}">
+        <td><a th:text="${contact.nameTitle} +' '+ ${contact.firstName}+ ' ' +${contact.lastName}"
+               th:href="@{/contact(id=${contact.id})}" class="btn active btn-link" role="button">
+            Contact, Fancy
+        </a></td>
+        <td th:text="${contact.mail}">
+            fconntact@fancyclient.test
+        </td>
+        <td th:text="${contact.tel}">
+            0123 456 789
+        </td>
+        <td>
+            <span th:text="${contact.street}">Fancy Street 1</span><br/>
+            <span th:text="${contact.zip} +' '+ ${contact.city}">12345 Fancy Town</span><br/>
+            <span th:text="${contact.country}">Fancy Country</span>
+        </td>
+        <td><a th:href="@{/client(id=${contact.clientId})}" th:text="${clients[contact.clientId]}">
+            Fancy Client
+        </a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="contactGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="contact:${contacts}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/contact(id=${contact.id})}">
+                            <h3 th:text="${contact.nameTitle}+' '+${contact.firstName}+' '+${contact.lastName}">
+                                Max
+                                Musterkontakt
+                            </h3>
+                        </a>
+                        <p><span class="glyphicon glyphicon-envelope"></span> <span th:text="${contact.mail}">
+                                    mmuserkontakt@fancyclient.test
+                           </span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-earphone"></span>
+                            <span th:text="${contact.tel}">0123 456 789</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table th:fragment="clientList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.client.name}">Name</th>
+        <th th:text="#{domain.client.description}">Beschreibung</th>
+        <td th:text="#{domain.client.location}">Standort</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client:${clients}">
+        <td>
+            <a th:text="${client.name}" th:href="@{/client(id=${client.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td th:text="${client.description}"></td>
+        <td th:text="${client.location}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="clientGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="client:${clients}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/client(id=${client.id})}"><h3 th:text="${client.name}"></h3>
+                        </a>
+                        <p><span th:text="${client.description}"></span></p>
+                        <p><span th:text="${client.location}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table th:fragment="projectList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th th:text="#{domain.listFragments.client}">Klient</th>
+        <th th:text="#{domain.listFragments.contactPerson}">Ansprechpartner</th>
+        <th th:text="#{domain.listFragments.area}">Bereich</th>
+        <th th:text="#{domain.listFragments.projectManager}">Projektleiter</th>
+        <th th:text="#{domain.listFragments.start}">Start</th>
+        <th th:text="#{domain.listFragments.end}">Ende</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project:${projects}">
+        <td>
+            <a th:text="${project.name}" th:href="@{/singleproject(id=${project.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td>
+            <a th:text="${clientMap.get(project.id).name}" th:href="@{/client(id=${clientMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${contactMap.get(project.id).firstName}+' '+${contactMap.get(project.id).lastName}" th:href="@{/contact(id=${contactMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${unitMap.get(project.id).name}" th:href="@{/areaprofile(id=${unitMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${managerMap.get(project.id).nameTitle}+' '+${managerMap.get(project.id).firstName}+' '+${managerMap.get(project.id).lastName}" th:href="@{/userprofile(id=${managerMap.get(project.id).id})}"></a>
+        </td>
+        <td th:text="${project.startDate}"></td>
+        <td th:text="${project.endDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="projectGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="project:${projects}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/singleproject(id=${project.id})}"><h3 th:text="${project.name}"></h3>
+                        </a>
+                        <p><span th:text="${unitMap.get(project.id).name}"></span></p>
+                        <p><span th:text="${managerMap.get(project.id).nameTitle}+' '+${managerMap.get(project.id).firstName}+' '+${managerMap.get(project.id).lastName}" th:href="@{/userprofile(id=${managerMap.get(project.id).id})}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table th:fragment="projectHistoryList">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Klient</th>
+        <th>Ansprechpartner</th>
+        <th>Bereich</th>
+        <th>Projektleiter</th>
+        <th>Start</th>
+        <th>Ende</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project:${projects}">
+        <td>
+            <a th:text="${project.name}" th:href="@{/singleproject(id=${project.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td>
+            <a th:text="${clientMap.get(project.id).name}" th:href="@{/client(id=${clientMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${contactMap.get(project.id).firstName}+' '+${contactMap.get(project.id).lastName}" th:href="@{/contact(id=${contactMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${unitMap.get(project.id).name}" th:href="@{/areaprofile(id=${unitMap.get(project.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${managerMap.get(project.id).nameTitle}+' '+${managerMap.get(project.id).firstName}+' '+${managerMap.get(project.id).lastName}" th:href="@{/userprofile(id=${managerMap.get(project.id).id})}"></a>
+        </td>
+        <td th:text="${project.startDate}"></td>
+        <td th:text="${project.endDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="projectHistoryGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="project:${projects}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/singleproject(id=${project.id})}"><h3 th:text="${project.name}"></h3>
+                        </a>
+                        <p><span th:text="${unitMap.get(project.id).name}"></span></p>
+                        <p><span th:text="${managerMap.get(project.id).nameTitle}+' '+${managerMap.get(project.id).firstName}+' '+${managerMap.get(project.id).lastName}" th:href="@{/userprofile(id=${managerMap.get(project.id).id})}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table th:fragment="pipelineList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th th:text="#{domain.listFragments.status}">Status</th>
+        <th th:text="#{domain.listFragments.area}">Bereich</th>
+        <th th:text="#{domain.listFragments.volume}">Umsatz</th>
+        <th th:text="#{domain.listFragments.weightedVolume}">Umsatz gew.</th>
+        <th th:text="#{domain.listFragments.start}">Start</th>
+        <th th:text="#{domain.listFragments.end}">Ende</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project:${projects}">
+        <td>
+            <a th:text="${project.name}" th:href="@{/singleproject(id=${project.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td
+            th:text="${project.status}">
+        </td>
+        <td>
+            <a th:text="${unitMap.get(project.id).name}" th:href="@{/areaprofile(id=${unitMap.get(project.id).id})}"></a>
+        </td>
+        <td th:text="${project.potentialProjectVolume}"></td>
+        <td th:text="${project.weightedProjectVolume}"></td>
+        <td th:text="${project.startDate}"></td>
+        <td th:text="${project.endDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="pipelineGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="project:${projects}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/singleproject(id=${project.id})}"><h3 th:text="${project.name}"></h3>
+                        </a>
+                        <p><span th:text="${unitMap.get(project.id).name}"></span></p>
+                        <p><span th:text="${project.status}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table th:fragment="areaList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th th:text="#{domain.listFragments.description}">Beschreibung</th>
+        <th th:text="#{domain.listFragments.areaManager}">Bereichsleiter 1</th>
+        <th th:text="#{domain.listFragments.areaManager2}">Bereichsleiter 2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orgU:${orgaUnits}">
+        <td>
+            <a th:text="${orgU.name}" th:href="@{/areaprofile(id=${orgU.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td th:text="${orgU.description}">
+        </td>
+        <td>
+            <a th:text="${firstManMap.get(orgU.id).nameTitle}+' '+${firstManMap.get(orgU.id).firstName}+' '+${firstManMap.get(orgU.id).lastName}" th:href="@{/userprofile(id=${firstManMap.get(orgU.id).id})}"></a>
+        </td>
+        <td>
+            <a th:text="${secondManMap.get(orgU.id).nameTitle}+' '+${secondManMap.get(orgU.id).firstName}+' '+${secondManMap.get(orgU.id).lastName}" th:href="@{/userprofile(id=${secondManMap.get(orgU.id).id})}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="areaGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="orgU:${orgaUnits}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/areaprofile(id=${orgU.id})}"><h3 th:text="${orgU.name}"></h3>
+                        </a>
+                        <p><span th:text="${firstManMap.get(orgU.id).nameTitle}+' '+${firstManMap.get(orgU.id).firstName}+' '+${firstManMap.get(orgU.id).lastName}" th:href="@{/userprofile(id=${firstManMap.get(orgU.id).id})}"></span></p>
+                        <p><span th:text="${secondManMap.get(orgU.id).nameTitle}+' '+${secondManMap.get(orgU.id).firstName}+' '+${secondManMap.get(orgU.id).lastName}" th:href="@{/userprofile(id=${secondManMap.get(orgU.id).id})}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<table th:fragment="skillList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th th:text="#{domain.listFragments.description}">Beschreibung</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="skill:${skills}">
+        <td>
+            <a th:text="${skill.name}" th:href="@{/skill(id=${skill.id})}" class="btn active btn-link"
+               role="button"></a>
+        </td>
+        <td th:text="${skill.description}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="skillGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="skill:${skills}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/skill(id=${skill.id})}"><h3 th:text="${skill.name}"></h3>
+                        </a>
+                        <p><span th:text="${skill.description}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table th:fragment="userList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th>Position</th>
+        <th th:text="#{domain.listFragments.area}">Bereich</th>
+        <th>h/week</th>
+        <th>Skills</th>
+        <th th:text="#{domain.listFragments.phone}">Telefon</th>
+        <th>E-Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="empl:${employees}">
+        <td>
+            <a th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}" th:href="@{/userprofile(id=${empl.id})}"></a>
+        </td>
+        <td th:text="${empl.position}">
+        </td>
+        <td>
+            <a th:text="${unitMap.get(empl.id).name}" th:href="@{/areaprofile(id=${unitMap.get(empl.id).id})}"></a>
+        </td>
+        <td th:text="${empl.workSchedule}">
+        </td>
+        <td>
+            <p th:each="skill:${empl.skillList}" th:text="${skill.left.name}"></p>
+        </td>
+        <td th:text="${empl.tel}">
+        </td>
+        <td th:text="${empl.mail}">
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="userGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="empl:${employees}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/userprofile(id=${empl.id})}"><h3 th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}"></h3>
+                        </a>
+                        <p><span th:text="${empl.position}"></span></p>
+                        <p><span th:text="${unitMap.get(empl.id).name}" th:href="@{/areaprofile(id=${unitMap.get(empl.id).id})}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table th:fragment="userListHistory">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Bereich</th>
+        <th>h/week</th>
+        <th>Skills</th>
+        <th>Telefon</th>
+        <th>E-Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="empl:${employees}">
+        <td>
+            <a th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}" th:href="@{/userprofile(id=${empl.id})}"></a>
+        </td>
+        <td th:text="${empl.position}">
+        </td>
+        <td>
+            <a th:text="${unitMap.get(empl.id).name}" th:href="@{/areaprofile(id=${unitMap.get(empl.id).id})}"></a>
+        </td>
+        <td th:text="${empl.workSchedule}">
+        </td>
+        <td>
+            <p th:each="skill:${empl.skillList}" th:text="${skill.left.name}"></p>
+        </td>
+        <td th:text="${empl.tel}">
+        </td>
+        <td th:text="${empl.mail}">
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="userGridHistory">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="empl:${employees}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/userprofile(id=${empl.id})}"><h3 th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}"></h3>
+                        </a>
+                        <p><span th:text="${empl.position}"></span></p>
+                        <p><span th:text="${unitMap.get(empl.id).name}" th:href="@{/areaprofile(id=${unitMap.get(empl.id).id})}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table th:fragment="supportList">
+    <thead>
+    <tr>
+        <th th:text="#{domain.listFragments.name}">Name</th>
+        <th>Position</th>
+        <th th:text="#{domain.listFragments.phone}">Telefon</th>
+        <th>E-Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="empl:${employees}">
+        <td>
+            <a th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}" th:href="@{/userprofile(id=${empl.id})}"></a>
+        </td>
+        <td th:text="${empl.position}">
+        </td>
+        <td th:text="${empl.tel}">
+        </td>
+        <td>
+            <a th:text="${empl.mail}" mail:to="${empl.mail}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:fragment="supportGrid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" th:each="empl:${employees}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <a th:href="@{/userprofile(id=${empl.id})}"><h3 th:text="${empl.nameTitle}+ ' ' +${empl.firstName}+' '+${empl.lastName}"></h3>
+                        </a>
+                        <p><span th:text="${empl.tel}"></span></p>
+                        <p><span th:text="${empl.mail}" mail:to="${empl.mail}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

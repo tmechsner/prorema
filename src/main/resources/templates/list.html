@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+    <title th:text="#{header.title(#{list.title(#{domain.__${domain}__})})}">PROREMA - Kontakt Ansicht</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
+
+    <script src="/js/datatables.min.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#list').DataTable(
+                    /*[+{
+                     "language": {
+                     "sEmptyTable": [[#{datatables.sEmptyTable}]],
+                     "sInfo": [[#{datatables.sInfo}]],
+                     "sInfoEmpty": [[#{datatables.sInfoEmpty}]],
+                     "sInfoFiltered": [[#{datatables.sInfoFiltered}]],
+                     "sInfoPostFix": [[#{datatables.sInfoPostFix}]],
+                     "sInfoThousands": [[#{datatables.sInfoThousands}]],
+                     "sLengthMenu": [[#{datatables.sLengthMenu}]],
+                     "sLoadingRecords": [[#{datatables.sLoadingRecords}]],
+                     "sProcessing": [[#{datatables.sProcessing}]],
+                     "sSearch": [[#{datatables.sSearch}]],
+                     "sZeroRecords": [[#{datatables.sZeroRecords}]],
+                     "oPaginate": {
+                     "sFirst": [[#{datatables.oPaginate.sFirst}]],
+                     "sPrevious": [[#{datatables.oPaginate.sPrevious}]],
+                     "sNext": [[#{datatables.oPaginate.sNext}]],
+                     "sLast": [[#{datatables.oPaginate.sLast}]]
+                     },
+                     "oAria": {
+                     "sSortAscending": [[#{datatables.oAria.sSortAscending}]],
+                     "sSortDescending": [[#{datatables.oAria.sSortDescending}]]
+                     }
+                     }
+                     }+]*/
+            );
+        });
+    </script>
+
+</head>
+<body>
+
+
+<div layout:fragment="content" th:fragment="list">
+
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>
+                    <span th:text="#{domain.__${domain}__.plural}"></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-pills" role="tablist">
+        <li th:if="${hidePresentationOptions == null}" role="presentation" class="active">
+            <a href="#listPanel" aria-controls="listPanel" role="tab" data-toggle="pill">
+                <span class="glyphicon glyphicon-th-list"></span></a>
+        </li>
+        <li th:if="${hidePresentationOptions == null}" role="presentation">
+            <a href="#grid" aria-controls="grid" role="tab" data-toggle="pill">
+                <span class="glyphicon glyphicon-th"></span></a>
+        </li>
+    </ul>
+    <br/>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="listPanel">
+            <table id="list" class="table table-striped table-hover" th:include="listFragments :: __${listFragment}__">
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="grid" th:include="listFragments :: __${gridFragment}__"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

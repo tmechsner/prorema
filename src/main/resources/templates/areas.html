@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="#{domain.areas.areasOverview}">PROREMA - Bereichsübersicht</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h1 th:text="#{domain.areas.areas}">
+                    Bereiche
+                    <small th:text="#{domain.areas.surveyOfAllAreas}">Übersicht aller Bereiche</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-12">
+
+
+                <div class="jumbotron">
+                    <div class="row">
+                    <div class="col-md-3"><br /><center><span class="glyphicon glyphicon-pencil" style="font-size: 150px; color:gray"></span></center>
+
+                    </div>
+                    <div class="col-md-9">
+
+                    <h2>
+                           Design
+                    </h2>
+                    <h4>
+                       <b th:text="#{domain.areas.areaManager}"> Bereichsleiter: Dr. Max Mustermann</b>
+                    </h4>
+                        <br />
+
+                                <button type="button" class="btn active btn-primary" data-toggle="collapse" data-target="#demo" th:text="#{domain.areas.32Employees}">32 Mitarbeiter</button> <a class="btn btn-primary btn-large" href="#">Bereich bearbeiten</a>
+                                <div id="demo" class="collapse">
+                                    Martin Ahrens, Simon Bockerdorf, Claudio Damme, Mario Gutenberg, Steve Smith, Martin Turnmann,Hermine Wittenberg
+                                </div>
+
+
+                    </div></div></div>
+
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-3"><br /><center><span class="glyphicon glyphicon-user" style="font-size: 150px; color:gray"></span></center>
+
+                        </div>
+                        <div class="col-md-9">
+
+                            <h2 th:text="#{domain.areas.staff}">
+                                Personal
+                            </h2>
+                            <h4>
+                                <b th:text="#{domain.areas.areaManager}"> Bereichsleiter: Dr. Max Mustermann</b>
+                            </h4>
+                            <br />
+                           <button type="button" class="btn active btn-primary" data-toggle="collapse" data-target="#demo3">32 Mitarbeiter</button> <a class="btn btn-primary btn-large" href="#">Bereich bearbeiten</a>
+                            <div id="demo3" class="collapse">
+                                Martin Ahrens, Simon Bockerdorf, Claudio Damme, Mario Gutenberg, Steve Smith, Martin Turnmann,Hermine Wittenberg
+                            </div>
+
+                        </div></div></div>
+
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-3"><br /><center><span class="glyphicon glyphicon-list-alt" style="font-size: 150px; color:gray"></span></center>
+
+                        </div>
+                        <div class="col-md-9">
+
+                            <h2 th:text="#{domain.areas.development}">
+                                Entwicklung
+                            </h2>
+                            <h4>
+                                <b th:text="#{domain.areas.areaManager}"> Bereichsleiter: Dr. Max Mustermann</b>
+                            </h4>
+                            <br />
+                            <button type="button" class="btn active btn-primary" data-toggle="collapse" data-target="#demo2">32 Mitarbeiter</button> <a class="btn btn-primary btn-large" href="#">Bereich bearbeiten</a>
+                            <div id="demo2" class="collapse">
+                                Martin Ahrens, Simon Bockerdorf, Claudio Damme, Mario Gutenberg, Steve Smith, Martin Turnmann,Hermine Wittenberg
+                            </div>
+
+                        </div></div></div>
+
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-3"><br /><center><span class="glyphicon glyphicon-book" style="font-size: 150px; color:gray"></span></center>
+
+                        </div>
+                        <div class="col-md-9">
+
+                            <h2 th:text="#{domain.areas.accounting}">
+                                Buchhaltung
+                            </h2>
+                            <h4>
+                                <b th:text="#{domain.areas.areaManager}"> Bereichsleiter: Dr. Max Mustermann</b>
+                            </h4>
+                            <br />
+                            <button type="button" class="btn active btn-primary" data-toggle="collapse" data-target="#demo1">32 Mitarbeiter</button> <a class="btn btn-primary btn-large" href="#">Bereich bearbeiten</a>
+                            <div id="demo1" class="collapse">
+                                Martin Ahrens, Simon Bockerdorf, Claudio Damme, Mario Gutenberg, Steve Smith, Martin Turnmann,Hermine Wittenberg
+                            </div>
+
+                        </div></div></div>
+            </div>
+        </div>
+
+    </div> </div>
+
+
+
+
+
+</body>
+</html>

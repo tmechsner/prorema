@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.w3.org/1999/xhtml" xmlns:mail="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title th:text="PROREMA - ${employee.nameTitle}${employee.firstName}${employee.lastName}"> </title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-9">
+				<h1 th:text="#{domain.userprofil.employeeProfile}">
+					Mitarbeiter Profil
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<div th:unless="${employee == null}" class="jumbotron container-fluid">
+		<div class="col-md-10">
+			<h2>
+				<b th:text="${employee.nameTitle}+${employee.firstName}+' '+${employee.lastName}"></b>
+			</h2>
+			<h3 th:if="${orgaUnit != null}">
+				<a th:text="${orgaUnit.name}+' - '+${orgaUnit.description}" th:href="@{/areaprofile(id=${orgaUnit.id})}"></a>
+			</h3>
+			<h3 th:text="${employee.position}">
+			</h3>
+		</div>
+		<div class="col-md-2">
+			<br />
+			<br />
+			<a class="btn btn-success btn-large" th:href="@{/userform(id=${employee.id})}" th:text="#{domain.userprofil.editEmployee}">
+				Mitarbeiter bearbeiten
+			</a>
+			<br />
+			<br />
+			<a id="modal-784526" href="#modal-container-784526" class="btn btn-success" role="button" data-toggle="modal" th:text="#{domain.userprofil.displayHistory}"> Verlauf anzeigen</a>
+		</div>
+	</div>
+
+
+	<div th:unless="${employee == null}" class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-8">
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4>Adresse
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<div class="list-group">
+								<div class="list-group-item">
+									<font color='#808080' th:text="${employee.street}"></font>
+								</div>
+							</div>
+
+							<div class="list-group">
+								<div class="list-group-item">
+									<font color='#808080' th:text="${employee.zip}+ ' ' +${employee.city}"></font>
+								</div>
+							</div>
+
+							<div class="list-group">
+								<div class="list-group-item">
+									<font color='#808080' th:text="${employee.country}"></font>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.contactInfo}">
+								Kontaktinfo
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<div class="list-group">
+								<div class="list-group-item">
+									<font color='#808080' th:text="${employee.tel}"></font>
+								</div>
+							</div>
+
+							<div class="list-group">
+								<a class="list-group-item" mail:to="${employee.mail}">
+									<font color='#00b04e' th:text="${employee.mail}"></font>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.workingTime}">
+								Arbeitszeit
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<h4>
+								<font color="#808080" th:text="${employee.workSchedule}+ ' h/w'"></font>
+							</h4>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4>
+								Skills
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h2>
+
+							</h2>
+						</div>
+						<div class="col-md-3">
+							<div class="list-group" th:each="skill:${employee.skillList}">
+								<a th:href="@{/skill(id=${skill.getLeft().getId()})}" class="list-group-item">
+									<font color='#00b04e' th:text="${skill.getLeft().getName()}+ '  (' + ${skill.getRight().toString()} + ')'"></font>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.projects}">
+								Projekte
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h2>
+
+							</h2>
+						</div>
+						<div class="col-md-3">
+							<div class="list-group" th:each="wop:${worksOnPro}">
+								<div class="list-group-item">
+									<a th:href="@{'/schedule'(id=${wop.id})}">
+										<span class="fa-stack">
+                            			<i class="glyphicon glyphicon-th-list"></i>
+                        				</span>
+									</a>
+									<a th:href="@{/singleproject(id=${wop.id})}">
+										<font color='#00b04e' th:text="${wop.name}"></font>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<a class="btn btn-success btn-large" th:href="@{'/worksOnForm' (emplId=${employee.id}, unitId=${employee.organisationUnitId})}">Projekt hinzufügen</a>
+						</div>
+						<div class="col-md-1">
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+			<!--&lt;!&ndash;							<div class="col-md-4">-->
+                                            <!--<div class="list-group" th:each="wop:${worksOnPro}">-->
+                                                <!--<a class="list-group-item" th:href="@{'/singleproject'(id=${wop.id})}">-->
+                                                    <!--<font color='#808080' th:text="${wop.name}">Maxi Musti</font>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>&ndash;&gt;-->
+
+			<!--<div class="col-sm-12">-->
+				<!--<div class="col-sm-12">-->
+					<!--<a class="btn btn-success" th:href="@{'/employeeaddskills/'(id=${employee.id})}">Skill hinzufügen</a>-->
+					<!--<table class="table">-->
+						<!--<thead>-->
+						<!--<tr>-->
+							<!--<th>Skill</th>-->
+							<!--<th>Level</th>-->
+						<!--</tr>-->
+						<!--</thead>-->
+						<!--<tbody>-->
+
+						<!--<tr class="info" th:each="skill:${employee.skillList}">-->
+							<!--<td th:text="${skill.getLeft().getName()}" />-->
+							<!--<td th:text="${skill.getRight().toString()}" />-->
+						<!--</tr>-->
+						<!--</tbody>-->
+					<!--</table>-->
+				<!--</div>-->
+				<!--<table class="table">-->
+					<!--<thead>-->
+					<!--<tr>-->
+						<!--<th>Beschreibung</th>-->
+						<!--<th>Link</th>-->
+					<!--</tr>-->
+					<!--</thead>-->
+					<!--<tbody>-->
+					<!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">-->
+						<!--<a class="btn btn-success btn-large" th:href="@{/profileForm(id=${employee.id})}"><span-->
+								<!--class="glyphicon glyphicon-plus"></span> Profil hinzufügen</a>-->
+					<!--</div>-->
+					<!--<tr class="warning" th:each="profile:${profiles}">-->
+						<!--<td>Mitarbeiterprofil vollständig</td>-->
+						<!--<td><a  href="#" th:text="${profile.url}">firma.de/storage/profil</a></td>-->
+					<!--</tr>-->
+					<!--</tbody>-->
+				<!--</table>-->
+			<!--</div>-->
+		<!--</div>-->
+						<!--<div class="col-md-2">-->
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.employeeSince}">
+								Mitarbeiter seit
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<h4>
+							<font color="#808080" th:text="${workEntry}"></font>
+							</h4>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.employeeUntil}">
+								Mitarbeiter bis
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<h4>
+								<font color="#808080" th:text="${workExit}"></font>
+							</h4>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-2">
+							<h4 th:text="#{domain.userprofil.description}">
+								Beschreibung
+							</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>
+
+							</h4>
+						</div>
+						<div class="col-md-3">
+							<div class="list-group" th:each="profile:${profiles}">
+								<a class="list-group-item" href="#">
+									<font color='#00b04e' th:text="${profile.url}"></font>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12" style="height:40px;"></div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout/fragments/historyPopUp :: historyPopUp">
+		static stuff
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="#{domain.unauthorized.missingAutorization}">PROREMA - Fehlende Berechtigungen</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <br/>
+
+    <div class="jumbotron" style="background-color: #f2dede">
+        <h2 th:text="#{domain.unauthorized.autorizationInfo}">Sie haben nicht die nötigen Berechtigungen für diese Aktion.</h2>
+    </div>
+
+    <button class="btn" data-toggle="collapse" data-target="#errormessage" th:text="#{domain.unauthorized.showDetails}">Details anzeigen</button>
+
+    <div id="errormessage" class="collapse">
+        Failed URL: <span th:text="${url}"></span><br />
+        Exception:  <span th:text="${exception.message}"></span><br />
+                <span th:each="st:${exception.stackTrace}">
+                    <span th:text="${st}"></span><br />
+                </span>
+    </div>
+
+    <br/>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="#{domain.profileForm.addprofile}">PROREMA - Profil hinzufügen</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <h1 align="center" th:text="#{domain.profileForm.addProfile}">Profil hinzufügen</h1>
+            <br />
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <form class="form-horizontal" role="form" action="#" th:action="@{/profileForm}" th:object="${newEmployeeProfileCmd}" method="post">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">URL <font color="red">*</font> </label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="url" th:field="*{url}" required="required"/>
+                    </div>
+                </div>
+                <input type="hidden" th:field="*{employeeId}"/>
+
+                <br/><br/>
+                <button type="submit" class="btn btn-success btn-block btn-lg" th:text="#{domain.profileForm.save}">Speichern</button>
+            </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+    <br /><br /><br />
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+Installing PROREMA
+-------------------
+
+The application works with apache maven build system and Spring Boot as basic framework.
+Spring Boot already includes a Tomcat servlet container / web server.
+
+Thus it does not require any further setup except for the database.
+
+We provide two modes for running the application:
+1. Standalone with an external database (MySql preconfigured)
+2. Standalone with an embedded in-memory H2 database (non persistent, demo data attached)
+
+
+Configuration
+--------------
+
+Database connection and server port can be configured in application-default.properties.
+A example configuration is provided.
+Configurations for databases other than MySql can be found on the internet.
+
+After starting MySql configuration, please comment out the line
+spring.jpa.hibernate.ddl-auto=create
+in application-default.properties to keep your database when the application needs to be restarted.
+Reenable this line to reset the database to initial state and throw away all manually added data on startup.
+
+
+Execution
+----------
+
+Finally to run the application with an external database just call
+mvn clean spring-boot:run
+
+For running the application with the in-memory H2 database preloaded with dummy-data please call
+mvn clean spring-boot:run -Dspring.profiles.active=inmemory
+
+
+First Login
+------------
+
+In the demo dataset each user's username is the first letter of his/her first name and the full last name.
+For David Rema it is "drema".
+All users have the password "password".
+
+In the MySql dataset the following entities are provided:
+ - Two admin users with usernames "admin1" / "admin2" and password "password",
+ - An organisation unit for the admins,
+ - A dummy project for absence (holidays, illness, ...).

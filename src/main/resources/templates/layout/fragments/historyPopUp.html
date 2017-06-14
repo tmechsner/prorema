@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
+
+</head>
+<body>
+
+    <div th:fragment="historyPopUp">
+
+        <div class="modal fade" id="modal-container-784526" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Verlauf
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Feld</th>
+                                <th>Aktion</th>
+                                <th>alter Wert</th>
+                                <th>neuer Wert</th>
+                                <th>Datum</th>
+                                <th>Mitarbeiter</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="changelog:${changelogs}">
+                                <td th:text="${changelog.fieldName}">
+                                </td>
+                                <td th:text="${changelog.changeType}">
+                                </td>
+                                <td th:text="${changelog.oldValue}">
+                                </td>
+                                <td th:text="${changelog.newValue}">
+                                </td>
+                                <td th:text="${changelog.timestamp}">
+                                </td>
+                                <td>
+                                   <a th:text="${users.get(changelog.changelogEntryId).nameTitle}+' '+${users.get(changelog.changelogEntryId).firstName}+' '+${users.get(changelog.changelogEntryId).lastName}" th:href="@{/userprofile(id=${users.get(changelog.changelogEntryId).id})}"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

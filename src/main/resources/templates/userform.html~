@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PROREMA - Mitarbeiter hinzufügen</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="Philip Buschmann">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#"><img src="img/reply.png" width="120" height="30"></a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="home.html">Home</a>
+						</li>
+						<li>
+							<a href="shedule-sexy.html">Planung</a>
+						</li>
+						<li>
+							<a href="projects.html">Projekte</a>
+						</li>
+						<li>
+							<a href="usersgrid.html">Mitarbeiter</a>
+						</li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Optionen<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="userprofil.html">Profil</a>
+								</li>
+								<li>
+									<a href="#">Hilfe</a>
+								</li>
+								<li>
+									<a href="userform.html">Mitarbeiter hinzufügen</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Einstellungen</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="index.html">Abmelden</a>
+						</li>
+						<div class="col-md-1">
+						</div>
+					</ul>
+				</div>
+		</div>
+	</div>		
+				
+		<div class="row">
+			<div class="col-md-12">
+				<h2><font color='#FFFFFF'>dada</font></h2>
+			</div>
+		</div>	
+				
+				
+			</nav>
+
+			<div class="row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+					<h1 align="center">Mitarbeiter hinzufügen</h1>
+					<br>
+				</div>
+				<div class="col-md-3">
+				</div>
+			</div>			
+			
+			<div class="row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-1">
+					<div class="col-md-2">
+					</div>
+					<div class="col-md-3">
+					<img src="img/default_avatar.png" alt="default" width="150" height="150">
+					</div>
+					<div class="col-md-7">
+					</div>
+				</div>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-4">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Titel
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Vorname
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Nachname
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Bereich
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Position
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-5 control-label">
+								Arbeitszeit pro Woche
+							</label>
+							<div class="col-sm-4">
+								<input class="form-control" id="inputEmail3" type="text" /> ( % oder Stunden)								
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								Straße
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								PLZ
+							</label>
+							<div class="col-sm-3">
+								<input class="form-control" id="inputEmail3" type="number" />
+							</div>
+							 
+							<label class="col-sm-2 control-label">
+								Stadt
+							</label>
+							<div class="col-sm-4">
+								<input class="form-control" id="inputEmail3" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-3 control-label">
+								E-Mail
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputEmail3" type="email" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-3">
+				</div>
+			</div>
+
+
+			
+
+
+			<div class="row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							 
+							<label class="col-sm-2 control-label">
+								Skills
+							</label>
+							<div class="col-sm-9">
+							  <input class="form-control" id="inputEmail3" type="text" />
+							  <table class="table">
+							    <thead>
+							      <tr>
+								<th>Skill</th>
+								<th>Level</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr class="info">
+								<td>Java</td>
+								<td>Expert</td>
+							      </tr>
+							      <tr class="info">
+								<td>Datenbanken</td>
+								<td>Advanced</td>
+							      </tr>							   
+							    </tbody>
+							  </table>
+							</div>
+							<div class="col-sm-1">
+								<img src="img/hinzufuegen.png" align="left" alt="hinzufuegen" width="30" height="30">							
+							</div>							 
+						</div>
+						<div class="form-group">
+							 
+							<label class="col-sm-2 control-label">
+								Externe Links
+							</label>
+							<div class="col-sm-9">
+								<input class="form-control" id="inputPassword3" type="text" />
+							  <table class="table">
+							    <thead>
+							      <tr>
+								<th>Beschreibung</th>
+								<th>Link</th>								
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr class="active">
+								<td>Mitarbeiterprofil vollständig</td>
+								<td><a href="#">reply.com/storage/profil_Mustermann</a></td>
+							      </tr>
+							      <tr class="active">
+								<td>MProfil-Skill Java v2</td>
+								<td><a href="#">/home/profile/mustermann/skill_java.docx</a></td>							
+							      </tr>							     
+							    </tbody>
+							  </table>
+							</div>
+							<div class="col-sm-1">
+								<img src="img/hinzufuegen.png" align="left" alt="hinzufuegen" width="30" height="30">
+							</div>
+						</div>
+					<br />
+					</form> 
+					<button type="button" class="btn btn-success btn-block btn-lg">
+						Speichern
+					</button>
+				</div>
+				<div class="col-md-3">
+				</div>
+			</div>
+		
+		</div>
+	<br /><br /><br />
+</div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+ </body>
+</html>

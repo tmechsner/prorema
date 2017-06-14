@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="PROREMA - ${client.name}">PROREMA - Fancy Client</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h1 th:text="#{domain.clientProfile.clientProfile}">
+                    Klient Profil
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${client != null}" class="jumbotron container-fluid">
+
+        <div class="col-md-10">
+            <h2>
+                <b th:text="${client.name}"></b>
+            </h2>
+            <h3>
+                <font color='#808080' th:text="${client.location}"></font>
+            </h3>
+            <h3 th:utext="${#strings.replace( #strings.escapeXml(client.description),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">
+            </h3>
+        </div>
+        <div class="col-md-2">
+            <br />
+            <br />
+            <a class="btn btn-success btn-large" th:href="@{/clientform(id=${client.id})}" th:text="#{domain.clientProfile.editClient}">Klient bearbeiten</a>
+            <br />
+            <br />
+            <a id="modal-784526" href="#modal-container-784526" class="btn btn-success" role="button" data-toggle="modal" th:text="#{domain.clientProfile.displayHistory}"> Verlauf anzeigen</a>
+        </div>
+    </div>
+
+    <div th:if="${client != null}" class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.clientProfile.contacts}">
+                                Kontakte
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="contact:${contacts}">
+                                <a th:href="@{/contact(id=${contact.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${contact.nameTitle}+' '+${contact.firstName}+' '+${contact.lastName}"></font>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                            <a class="btn btn-success btn-large" th:href="@{/contactform(clientid=${client.id})}" th:text="#{domain.clientProfile.addContact}">Kontakt hinzufügen</a>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-2">
+                            <h4 th:text="#{domain.clientProfile.projects}">
+                                Projekte
+                            </h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h2>
+
+                            </h2>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group" th:each="project:${projects}">
+                                <a th:href="@{/singleproject(id=${project.id})}" class="list-group-item">
+                                    <font color='#00b04e' th:text="${project.name}"></font>
+                                    <font color='#00b04e'>(</font>
+                                    <font color='#00b04e' th:text="${project.getRunning()} ? 'Laufend' : ${project.status.name}"></font>
+                                    <font color='#00b04e'>)</font>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12" style="height:40px;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout/fragments/historyPopUp :: historyPopUp">
+        static stuff
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title th:text="#{domain.userform.addEmployee}">PROREMA - Mitarbeiter hinzufügen</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/pikaday.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css"/>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/bootstrap-select.min.js"></script>
+    <script src="/js/pikaday.js"></script>
+    <script src="/js/pikaday.jquery.js"></script>
+    <script src="/js/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#datepickerEntry").pikaday({
+                format: 'YYYY-MM-DD',
+                firstDay: 1
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#datepickerExit").pikaday({
+                format: 'YYYY-MM-DD',
+                firstDay: 1
+            });
+        });
+    </script>
+
+    <script>
+        function addSkill() {
+            var id = $('#skill').val();
+            var name = $("#skill option[value='" + id + "']").text();
+            if ($("#" + name).length != 0) {
+                return;
+            }
+
+            var level = $('#level').val();
+            var removeSkill = "removeSkill(";
+            var closeBracket = ")";
+            var classColMd5 = "text-center";
+            var classColMd2 = "col-md-2";
+
+            $("#skillTable").append('<tr id="' + name + '">' +
+                    '<td class="text-center">' + name + '</td>' +
+                    '<td class="text-center">' + level + '</td>' +
+                    '<td class="col-md-2">' +
+                    '<input type="hidden" name="newSkillIds" value="' + id + '" />' +
+                    '<input type="hidden" name="newSkillLevels" value="' + level + '" />' +
+                    '<button type="button" class="btn btn-info" onclick="removeSkill(' + name + ')" >Löschen</button>' +
+                    '</td></tr>');
+
+        }
+        function removeSkill(skill) {
+            $(skill).remove();
+        }
+        function removeHasSkill(skillName, hasSkillId) {
+            $(skillName).remove();
+            $('#employeeForm').append('<input type="hidden" name="removedSkillIds" value="' + hasSkillId + '" />');
+        }
+
+        var profiles = 0;
+
+        function addProfile() {
+            var url = $('#url').val();
+            var elementId = profiles;
+            profiles++;
+            var removeSkill = "removeSkill(";
+            $('#profileTable').append('<tr id="profile' + elementId + '">' +
+                    '<td class="col-md-10"><a target="_blank" href="' + url + '">' + url + '</a></td>' +
+                    '<td class="col-md-2">' +
+                    '<input type="hidden" name="newProfiles" value="' + url + '"/>' +
+                    '<button type="button" class="btn btn-danger" onclick="removeProfile(profile' + elementId + ')"><i class="glyphicon glyphicon-trash"></i></button>' +
+                    '</td>' +
+                    '</tr>');
+        }
+        function removeProfile(elementId) {
+            $(elementId).remove();
+        }
+        function removeExistingProfile(elementId, profileId) {
+            $(elementId).remove();
+            $('#employeeForm').append('<input type="hidden" name="removedProfiles" value="' + profileId + '" />')
+        }
+    </script>
+
+    <style>
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+
+    //call this first so we start out with the correct visibility depending on the selected form values
+    $("#pos").each(function() {
+        toggleFields(this);
+    })
+
+    //this will call our toggleFields function every time the selection value of our underAge field changes
+    $("#pos").change(function () {
+        toggleFields(this);
+    });
+
+});
+        function toggleFields(position) {
+           var elem = position;
+           if (elem.value == "Administrator") {
+               //hide unit selection and set default value
+               $("#unit").hide();
+               $("#selectU").attr("value", "4000");
+           } else {
+               $("#unit").show();
+           }
+        }
+    </script>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 align="center" th:text="#{domain.userform.editEmployee}">
+					Mitarbeiter hinzufügen / bearbeiten
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<form id="employeeForm" class="form-horizontal" role="form" action="#" th:action="@{/userform}" th:object="${newEmployeeCmd}" method="post">
+				<div class="jumbotron">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.title}">Titel</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="nameTitle" th:field="*{nameTitle}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.firstName}">Vorname <font color="red">*</font> </label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="firstName" th:field="*{firstName}"
+								   required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.secondName}">Nachname <font color="red">*</font> </label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="lastName" th:field="*{lastName}"
+								   required="required" />
+						</div>
+					</div>
+					<div class="form-group" id="unit">
+
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.area}">Bereich <font color="red">*</font> </label>
+						<div class="col-sm-8">
+							<select th:field="*{orgaUnitId}" id="selectU" class="selectpicker show-tick form-control" data-style="btn-success">
+								<option th:each="orgaUnit :${orgaUnits}"
+										th:value="${orgaUnit.id}"
+										th:text="${orgaUnit.name}+ ' '+ '(' + ${orgaUnit.description} + ')'">Bereiche</option>
+							</select>
+						</div>
+					</div>
+                    <input class="hidden" th:unless="${position == 'Administrator'}" th:field="*{position}"/>
+					<div class="form-group" th:if="${position == 'Administrator'}">
+
+                        <label class="col-sm-3 control-label">Position</label>
+                        <div class="col-sm-8">
+                            <select th:field="*{position}" class="selectpicker show-tick form-control" id="pos"
+                                    data-style="btn-success">
+                                <option th:each="position :${T(de.unibielefeld.techfak.tdpe.prorema.domain.Employee.Position).values()}"
+                                        th:value="${position}"
+                                        th:text="${position}">Positionen
+                                </option>
+                            </select></div>
+                    </div>
+                    <div class="form-group">
+
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.phone}">Telefon <font color="red">*</font></label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="tel" th:field="*{tel}"/>
+						</div>
+					</div>
+					<div class="form-group">
+
+						<label class="col-sm-3 control-label">E-Mail <font color="red">*</font></label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" name ="eMail" th:field="*{eMail}"
+								   required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.h/week}">Std/Woche <font color="red">*</font></label>
+						<div class="col-sm-8">
+							<input class="form-control" type="number" min="0" max="40" name ="workSchedule" th:field="*{workSchedule}"
+								   required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" th:text="#{domain.userform.userName}">Benutzername</label>
+						<div class="col-sm-3">
+							<input class="form-control" type="text" name ="username" th:field="*{username}" required="required"/>
+						</div>
+						<label class="col-sm-2 control-label" th:text="#{domain.userform.password}">Passwort</label>
+						<div class="col-sm-3">
+							<input class="form-control" type="text" name ="password" th:field="*{password}" />
+						</div>
+					</div>
+					<div class="form-group control-label">
+						<label class="col-sm-3" th:text="#{domain.userform.addSkills}">Skills hinzufügen</label>
+						<div class="col-sm-8">
+
+                            <div class="col-md-5">
+
+                                <select id="skill" class="selectpicker show-tick form-control" data-live-search="true"
+                                        data-style="btn-info">
+                                    <option th:each="skill :${skills}"
+                                            th:value="${skill.id}"
+                                            th:text="${skill.name}">Skill
+                                    </option>
+                                </select>
+
+								</div>
+								<div class="col-md-5">
+									<select id="level" class="selectpicker show-tick form-control" data-style="btn-info">
+										<option th:each="skilllevel :${T(de.unibielefeld.techfak.tdpe.prorema.domain.Skill.SkillLevel).values()}"
+												th:text="${skilllevel}">Level</option>
+									</select>
+								</div>
+								<div class="col-md-2">
+									<button type="button" onclick="addSkill()" class="btn btn-info" th:text="#{domain.userform.save}">Speichern</button>
+								</div>
+
+                            <br/><br/>
+
+
+							<table class="table table-striped" id="skillTable">
+								<thead>
+								<tr>
+									<th class="col-md-5">
+										Skill
+									</th>
+									<th class="col-md-5">
+										Level
+									</th>
+									<th class="col-md-2">
+										&nbsp;
+									</th>
+								</tr>
+								</thead>
+								<tbody th:if="${hasSkillList} != null">
+									<tr th:each="skill:${hasSkillList}" th:id="${skill.skill.name}">
+										<td class="text-center" th:text="${skill.skill.name}"></td>
+										<td class="text-center" th:text="${skill.skillLevel.toString()}"></td>
+										<td class="col-md-2">
+											<button type="button" class="btn btn-info" th:onclick="'removeHasSkill(' + ${skill.skill.name} + ', \'' + ${skill.id} + '\')'" th:text="#{domain.userform.delete}">Löschen</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+				                <div class="panel panel-success">
+				                    <div class="panel-heading">
+				                        <a class="panel-title" data-toggle="collapse" href="#profilesPanel">Mitarbeiter Profile
+				                            hinzufügen</a>
+				                    </div>
+				                    <div id="profilesPanel" class="panel-collapse collapse out">
+				                        <div class="panel-group">
+				                            <div class="jumbotron">
+				                                <div class="form-group">
+				                                    <div class="col-md-2">
+				                                        <label class="control-label">URL</label>
+				                                    </div>
+				                                    <div class="col-md-8">
+				                                        <input id="url" class="form-control" type="text"/>
+				                                    </div>
+				                                    <div class="col-md-2">
+				                                        <button type="button" onclick="addProfile()" class="btn btn-info">
+				                                            <i class="glyphicon glyphicon-plus"></i>
+				                                        </button>
+				                                    </div>
+
+				                                    <br/><br/>
+
+				                                    <table class="table table-striped" id="profileTable">
+				                                        <thead>
+			                                       <tr>
+				                                            <th class="col-md-10">
+				                                                Url
+				                                            </th>
+				                                            <th class="col-md-2">
+				                                                &nbsp;
+				                                            </th>
+				                                        </tr>
+			                                       </thead>
+				                                        <tbody th:if="${profilesList} != null">
+			                                       <tr th:each="profile:${profilesList}" th:id="'existingProfile' + ${profile.id}">
+				                                            <td class="col-md-10">
+				                                                <a th:href="@{${profile.url}}" th:text="${profile.url}" target="_blank">
+				                                                </a>
+				                                            </td>
+				                                            <td class="col-md-2">
+				                                                <button type="button" class="btn btn-danger" th:onclick="'removeExistingProfile(existingProfile' + ${profile.id} + ',' + ${profile.id} + ')'">
+				                                                    <i class="glyphicon glyphicon-trash"></i>
+				                                                </button>
+				                                            </td>
+				                                        </tr>
+			                                      </tbody>
+				                                    </table>
+				                                </div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<a class="panel-title" data-toggle="collapse" href="#panel-element-172838" th:text="#{domain.userform.enhancedSettings}">Erweiterte Einstellungen (Optional)</a>
+					</div>
+					<div id="panel-element-172838" class="panel-collapse collapse out">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.userform.workingTimePeriod}">Arbeitszeitraum</label>
+								<div class="col-sm-3">
+									<input id="datepickerEntry" class="form-control" type="text" name ="workEntry" th:field="*{workEntry}" />
+								</div>
+								<div class="col-sm-2">
+									<p style="font-size:140%; text-align:center;" th:text="#{domain.userform.until}">bis zum</p>
+								</div>
+								<div class="col-sm-3">
+									<input id="datepickerExit" class="form-control" type="text" name ="workExit" th:field="*{workExit}" />
+								</div>
+
+							</div>
+							<br />
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.userform.country}">Land</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name ="country" th:field="*{country}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" th:text="#{domain.userform.street}">Straße</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name ="street" th:field="*{street}" />
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label class="col-sm-3 control-label" th:text="#{domain.userform.zip}">PLZ</label>
+								<div class="col-sm-3">
+									<input class="form-control" type="number" min="0" name ="zip" th:field="*{zip}"
+										   data-error="Kann nicht niedriger als 0 sein" />
+								</div>
+								<label class="col-sm-1 control-label" th:text="#{domain.userform.city}">Stadt</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" name ="city" th:field="*{city}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<br />
+				<input type="hidden" th:field="*{id}"/>
+				<button type="submit" class="btn btn-success btn-block btn-lg" th:text="#{domain.userform.save}">Speichern</button>
+			</form>
+
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+    <br/><br/><br/>
+</div>
+
+</body>
+</html>

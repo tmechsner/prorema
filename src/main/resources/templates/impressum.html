@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+    <title th:text="#{domain.impressum.siteNotice}">PROREMA - Impressum</title>
+
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+
+    <link href="/css/footer.css" rel="stylesheet"/>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192"  href="/img/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"/>
+
+
+    <style>
+
+        .wrapper {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .page-header {
+            margin-bottom: 90px;
+        }
+
+        .jumbotron {
+            padding-left: 60px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="col-md-12">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button> <a class="navbar-brand" href="#"><img src="/img/prorema_small.png" width="120" height="30" /></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/login">Start</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <div class="col-md-1">
+                </div>
+            </ul>
+        </div>
+    </nav>
+</div>
+<br />
+<div class="wrapper">
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-9">
+            <h1 th:text="#{domain.impressum.sitenotice}">
+                Impressum
+            </h1>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron">
+    <h3 th:text="#{domain.impressum.referred}">
+        Angaben gemäß § 5 TMG:
+    </h3>
+    <h4>
+        <font color="#808080">
+            Firma AG <br />
+            Hauptstraße 1 <br />
+            12345 Musterstadt <br />
+        </font>
+    </h4>
+    <br />
+    <h3 th:text="#{domain.impressum.representedBy}">
+        Vertreten durch:
+    </h3>
+    <h4>
+        <font color="#808080">
+            Dr. Viktor Vorstand
+        </font>
+    </h4>
+    <br />
+    <h3 th:text="#{domain.impressum.Contact}">
+        Kontakt:
+    </h3>
+    <h4>
+        <font color="#808080">
+            Telefon:    05432 12345 <br />
+            Telefax:    05432 12346 <br />
+            E-Mail:     ITadministrator@firma.de <br />
+        </font>
+    </h4>
+</div>
+
+    <a type="button" class="btn btn-secondary" th:href="@{/login}" style="padding-bottom: 9em;" th:text="#{domain.impressum.back}">Zurück</a>
+
+</div>
+
+<div class="footer navbar-fixed-bottom">
+
+    <footer class="footer-distributed navbar-fixed-bottom">
+
+        <div class="footer-right">
+
+            <a href="?lang=de">DE</a>
+
+            <a href="?lang=en">EN</a>
+
+        </div>
+
+        <div class="footer-left">
+
+            <p class="footer-links">
+                <a th:href="@{/impressum}">Impressum</a>
+            </p>
+
+            <a href="?lang=de">DE</a>
+
+            <a href="?lang=en">EN</a>
+
+        </div>
+
+    </footer>
+</div>
+
+</body>
+</html>

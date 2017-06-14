@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
+
+
+</head>
+<body>
+
+<div th:fragment="navigation">
+
+    <div class="Kopfzeile">
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home"><img src="/img/prorema_small.png" width="120" height="30"/></a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li>
+                            <a href="/schedule" th:text="#{domain.navigation.schedule}">Planung</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/projects" class="dropdown-toggle" data-toggle="dropdown"><Span th:text="#{domain.navigation.projects}">Projekte</Span><strong
+                                    class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li th:if="${allowedCreateProject == true}">
+                                    <li>
+                                        <a href="/projectform" th:text="#{domain.navigation.newProject}">Neues Projekt</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                </li>
+                                <li>
+                                    <a href="/projects" th:text="#{domain.navigation.projects}">Projekte</a>
+                                </li>
+                                <li>
+                                    <a href="/pipeline" th:text="#{domain.navigation.pipeline}">Pipeline</a>
+                                </li>
+                                <li>
+                                    <a href="/projectsHistory">Projekthistorie</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="dropdown">
+                            <a href="/userslist" class="dropdown-toggle" data-toggle="dropdown"><span th:text="#{domain.navigation.employees}">Mitarbeiter</span><strong
+                                    class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li th:if="${allowedCreateEmployee == true}">
+                                    <a href="/userform" th:text="#{domain.navigation.newEmployee}">Neuer Mitarbeiter</a>
+                                </li>
+                                <li th:if="${allowedCreateOrgaUnit == true}">
+                                    <a href="/areaform" th:text="#{domain.navigation.newArea}">Neuer Bereich</a>
+                                </li>
+                                <li th:if="${allowedCreateEmployee == true || allowedCreateOrgaUnit == true}" class="divider">
+                                </li>
+                                <li>
+                                    <a href="/userslist" th:text="#{domain.navigation.employees}">Mitarbeiter</a>
+                                </li>
+                                <li>
+                                    <a href="/areas" th:text="#{domain.navigation.areas}">Bereiche</a>
+                                </li>
+                                <li>
+                                    <a href="/userlistHistory">Mitarbeiterhistorie</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/clientlist" class="dropdown-toggle" data-toggle="dropdown"><span th:text="#{domain.navigation.clients}">Klienten</span><strong
+                                    class="caret"></strong> </a>
+                            <ul class="dropdown-menu">
+                                <li th:if="${allowedCreateClient == true}">
+                                    <a href="/clientform" th:text="#{domain.navigation.newClient}">Neuer Klient</a>
+                                </li>
+                                <li th:if="${allowedCreateContact == true}">
+                                    <a href="/contactform" th:text="#{domain.navigation.newContact}">Neuer Kontakt</a>
+                                </li>
+                                <li th:if="${allowedCreateClient == true || allowedCreateContact == true}" class="divider"></li>
+                                <li>
+                                    <a href="/clientlist" th:text="#{domain.navigation.clients}">Klienten</a>
+                                </li>
+                                <li>
+                                    <a href="/contactlist" th:text="#{domain.navigation.contacts}">Kontakte</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/skillslist" class="dropdown-toggle" data-toggle="dropdown">Skills<strong
+                                    class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li th:if="${allowedCreateSkill == true}">
+                                    <li>
+                                        <a href="/skillform" th:text="#{domain.navigation.newSkill}">Neuer Skill</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                </li>
+                                <li>
+                                    <a href="/skillslist">Skills</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a th:href="@{/userprofile(id=${loggedInUserId})}" th:text="#{domain.navigation.profile}">Profil</a>
+                        </li>
+                        <li>
+                            <a href="/logout" th:text="#{domain.navigation.logOut}">Abmelden</a>
+                        </li>
+                        <div class="col-md-1">
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

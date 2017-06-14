@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>PROREMA - Mitarbeiter Ansicht</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="Jonathan Jakob">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#"><img src="img/reply.png" width="120" height="30"></a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="home.html">Home</a>
+						</li>
+						<li>
+							<a href="shedule-sexy.html">Planung</a>
+						</li>
+						<li>
+							<a href="projects.html">Projekte</a>
+						</li>
+						<li class="active">
+							<a href="usersgrid.html">Mitarbeiter</a>
+						</li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Optionen<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="userprofil.html">Profil</a>
+								</li>
+								<li>
+									<a href="#">Hilfe</a>
+								</li>
+								<li>
+									<a href="userform.html">Mitarbeiter hinzufügen</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Einstellungen</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="index.html">Abmelden</a>
+						</li>
+						<div class="col-md-1">
+						</div>
+					</ul>
+				</div>
+		</div>
+	</div>		
+				
+		<div class="row">
+			<div class="col-md-12">
+				<h2><font color='#FFFFFF'>dada</font></h2>
+			</div>
+		</div>	
+				
+				
+			</nav>
+			<div class="page-header">
+				<div class="row">
+				<div class="col-md-9">
+				<h1>
+					Mitarbeiter <small>Übersicht aller Arbeitskräfte</small>
+				</h1>
+				</div>
+				</div>
+			</div>
+			<div class="panel-group" id="panel-52500">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <a class="panel-title" data-toggle="collapse" data-parent="#panel-52500" href="#panel-element-172838">Skill Tags</a>
+					</div>
+					<div id="panel-element-172838" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Java</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Datenbanken</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Python</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">CRM</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">C</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">C++</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-52500" href="#panel-element-283332">Weitere Tags</a>
+					</div>
+					<div id="panel-element-283332" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Liste von weiteren Tags</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+			
+			<ul class="nav nav-pills">
+				<li>
+					<a href="usersgrid.html">Rasteransicht</a>
+				</li>
+				<li>
+					<a href=>Listenansicht</a>
+				</li>
+				
+				<li class="dropdown pull-right">
+					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Filtern<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">Skill</a>
+						</li>
+						<li>
+							<a href="#">Verfügbarkeit</a>
+						</li>
+						<li>
+							<a href="#">Wohnort</a>
+						</li>						
+					</ul>
+				</li>
+			</ul>
+			
+			<table class="table table-bordered table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Name
+						</th>
+						<th>
+							Abteilung
+						</th>
+						<th>
+							Auslastung
+						</th>
+						<td>
+							Skills
+						</td>
+						<td>
+							Status
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="success">
+						<td>
+							1
+						</td>
+						<td>
+							<a href="userprofil.html"><button type="button" class="btn active btn-link">
+						Max Mustermann<br>
+					</button></a>
+							<div class="view">
+								<img alt="Bootstrap Image Preview" class="img-rounded" src="img/Mitarbeiter1.png" width="90" height="90">
+							</div>
+						</td>
+						<td>
+							Bereich 1
+						</td>
+						<td>
+							87,5 %
+						</td>
+						<td>
+							Java, Datenbanken
+						</td>
+						<td>
+							AKTIV 
+						</td>
+					</tr>
+					<tr class="success">
+						<td>
+							2
+						</td>
+						<td>
+							<a href="userprofil.html"><button type="button" class="btn active btn-link">
+						Heidi von der Alb<br>
+						</button></a>
+							<div class="view">
+								<img alt="Bootstrap Image Preview" class="img-rounded" src="img/Mitarbeiter2.png" width="90" height="90">
+							</div>
+						</td>
+						<td>
+							Bereich 2
+						</td>
+						<td>
+							65 %
+						</td>
+						<td>
+							Python, CRM
+						</td>
+						<td>
+							AKTIV
+						</td>
+					</tr>
+					<tr class="success">
+						<td>
+							3
+						</td>
+						<td>
+							<a href="userprofil.html"><button type="button" class="btn active btn-link">
+						Bob Baumeister<br>
+						</button></a>
+							<div class="view">
+								<img alt="Bootstrap Image Preview" class="img-rounded" src="img/Mitarbeiter3.png" width="90" height="90">
+							</div>
+						</td>
+						<td>
+							Bereich 3
+						</td>
+						<td>
+							100 %
+						</td>
+						<td>
+							C, C++
+						</td>
+						<td>
+							AKTIV 
+						</td>
+					</tr>
+					<tr class="active">
+						<td>
+							4
+						</td>
+						<td>
+							<a href="userprofil.html"><button type="button" class="btn active btn-link">
+						John Doe<br>
+						</button></a>
+							<div class="view">
+								<img alt="Bootstrap Image Preview" class="img-rounded" src="img/Projektleiter.png" width="90" height="90">
+							</div><br>
+							<div class="view">
+							</div>
+						</td>
+						<td>
+							Bereich 4
+						</td>
+						<td>
+							85 %
+						</td>
+						<td>
+							Leadership, Key Account Management
+						</td>
+						<td>
+							URLAUB
+						</td>
+					</tr>
+					<tr class="danger">
+						<td>
+							5
+						</td>
+						<td>
+							<a href="userprofil.html"><button type="button" class="btn active btn-link">
+						Jane Doe<br>
+						</button></a>
+							<div class="view">
+								<img alt="Bootstrap Image Preview" class="img-rounded" src="img/Mitarbeiter4.png" width="90" height="90">
+							</div>
+						</td>
+						<td>
+							Bereich 5
+						</td>
+						<td>
+							0 %
+						</td>
+						<td>
+							Vertragsverhandlung, Kostenmanagement
+						</td>
+						<td>
+							INAKTIV 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="pagination pagination-lg">
+				<li>
+					<a href="#">Prev</a>
+				</li>
+				<li>
+					<a href="#">1</a>
+				</li>
+				<li>
+					<a href="#">2</a>
+				</li>
+				<li>
+					<a href="#">3</a>
+				</li>
+				<li>
+					<a href="#">4</a>
+				</li>
+				<li>
+					<a href="#">5</a>
+				</li>
+				<li>
+					<a href="#">Next</a>
+				</li>
+			</ul> 
+			
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

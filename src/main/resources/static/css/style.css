@@ -1,0 +1,68 @@
+/* Empty CSS file for your own CSS*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+
+}
+
+progress[value] {
+    appearance: none;
+
+    border: none;
+
+    width: 100%;
+    height: 40px;
+
+    background-color: whiteSmoke;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .5) inset;
+
+    color: green;
+
+    position: relative;
+    margin: 0 0 1.5em;
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: green;
+
+}
+
+progress[value]::-moz-progress-bar {
+    background-color: green;
+}
+
+p[data-value] {
+
+    position: relative;
+}
+
+p[data-value]:after {
+    content: attr(data-value) '%';
+    position: absolute;
+    right: 0;
+}
+
+.top10 {
+    margin-top: 10px;
+}
+
+.top20 {
+    margin-top: 20px;
+}
+
+.top30 {
+    margin-top: 30px;
+}
+
+.top40 {
+    margin-top: 40px;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+
+

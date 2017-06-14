@@ -1,0 +1,72 @@
+__/\\\\\\\\\\\\\______/\\\\\\\\\___________/\\\\\_________/\\\\\\\\\______/\\\\\\\\\\\\\\\__/\\\\____________/\\\\_____/\\\\\\\\\____
+ _\/\\\/////////\\\__/\\\///////\\\_______/\\\///\\\_____/\\\///////\\\___\/\\\///////////__\/\\\\\\________/\\\\\\___/\\\\\\\\\\\\\__
+  _\/\\\_______\/\\\_\/\\\_____\/\\\_____/\\\/__\///\\\__\/\\\_____\/\\\___\/\\\_____________\/\\\//\\\____/\\\//\\\__/\\\/////////\\\_
+   _\/\\\\\\\\\\\\\/__\/\\\\\\\\\\\/_____/\\\______\//\\\_\/\\\\\\\\\\\/____\/\\\\\\\\\\\_____\/\\\\///\\\/\\\/_\/\\\_\/\\\_______\/\\\_
+    _\/\\\/////////____\/\\\//////\\\____\/\\\_______\/\\\_\/\\\//////\\\____\/\\\///////______\/\\\__\///\\\/___\/\\\_\/\\\\\\\\\\\\\\\_
+     _\/\\\_____________\/\\\____\//\\\___\//\\\______/\\\__\/\\\____\//\\\___\/\\\_____________\/\\\____\///_____\/\\\_\/\\\/////////\\\_
+      _\/\\\_____________\/\\\_____\//\\\___\///\\\__/\\\____\/\\\_____\//\\\__\/\\\_____________\/\\\_____________\/\\\_\/\\\_______\/\\\_
+       _\/\\\_____________\/\\\______\//\\\____\///\\\\\/_____\/\\\______\//\\\_\/\\\\\\\\\\\\\\\_\/\\\_____________\/\\\_\/\\\_______\/\\\_
+        _\///______________\///________\///_______\/////_______\///________\///__\///////////////__\///______________\///__\///________\///__
+
+
+CONTENT:
+
+  - General Information
+  - Installation Instruction
+  - Configuration Instruction
+  - Technical Documentation
+  - CSS-Customization
+  - LICENCE
+  - Copyright and Contact
+  - Included Libraries
+  - Credits and Acknowledgements
+
+
+--- GENERAL INFORMATION ---
+
+  - Structure: Spring Boot MVC
+  - Languages: Java, HTML & Javascript for interfaces, Thymeleaf to connect frontend and backend.
+  - Maven project
+
+
+--- INSTALLATION INSTRUCTION ---
+
+Instructions on how to install this programme can be found in the INSTALL file in the same folder.
+
+
+--- TECHNICAL DOCUMENTATION ---
+
+For technical details please cosult the TECHNICAL DOCUMENTATION file where most complex features are explained.
+
+--- CSS-CUSTOMIZATION ---
+
+The style of the system can easily be changed via CSS-Customization. See the CUSTOMIZATION file for further details on this matter.
+
+
+--- LICENCE ---
+
+Information about the License of this programme can be found in the corresponding "LICENCE" file in the main folder.
+
+
+--- COPYRIGHT AND CONTACT ---
+
+Information on Copyright and some contact-details of the resposible people can be found in the COPYRIGHT-file.
+
+
+--- LIBRARIES INCLUDED ---
+
+ - JQuery
+ - Hibernate
+ - PickADay
+ - Log4j
+ - Lombok
+ - chart.js
+ - bootstrap select
+ - Moment.js
+ - iText
+ - assertj
+
+--- CREDITS AND ACKNOWLEDGEMENTS ---
+
+We want to thank the University of Bielefeld and the organisers of the course "Techniken der Projektentwicklung" for setting up the environment and providing all needed support to realize this project.
+Special Thanks goes to our Tutors who supported us wherever it was needed and guided us through this experience.

@@ -1,0 +1,54 @@
+PROREMA Branding Customization Guide
+
+Overview
+
+1. Brand Color
+2. Typography
+3. Company Logo
+
+
+--- 1. Company Brand Color ---
+
+PROREMA's Characteristic Color is Lima Green (#00b04e). It is used for main Links, primary Buttons and several backgrounds.
+It can be changed in any color (recommended: green, blue, dark orange).
+
+- Go to main/resources/static/css/ and open "bootstrap.min.css".
+- Find every "00b04e" element and change it into the prefered color
+
+
+--- 2. Typography ---
+
+PROREMA uses "Montserrat" by Julieta Ulanovsky. It is embedded online via Google's Font Service:
+https://www.google.com/fonts#UsePlace:use/Collection:Montserrat
+
+- Go to main/resources/static/css/
+To change the font into the companys font, import the new font into the head of the following css files:
+bootstrap.min.css; style.css
+Example: @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+Then replace every mention of "Montserrat" into the name of your font. Resize the font on your demand.
+
+
+--- 3. Company Logo ---
+
+- Go to main/resources/static/img/ and open "bootstrap.min.css".
+Replace the following images with your branded images:
+
+Login Page Logo: prorema.png (738x209px)
+Top Left Logo: prorema_small.png (250x64px)
+
+Favicons (tip: favicon-generator.org generates all needed favicon sizes): 
+favico.ico
+favicon-16x16.png
+favicon-32x32.png
+favicon-96x96.png
+android-icon-192x192.png
+apple-icon-57x57.png
+apple-icon-60x60.png
+apple-icon-72x72.png
+apple-icon-76x76.png
+apple-icon-114x114.png
+apple-icon-120x120.png
+apple-icon-144x144.png
+apple-icon-152x152.png
+apple-icon-180x180.png

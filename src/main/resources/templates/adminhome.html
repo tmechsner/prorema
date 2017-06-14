@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout_page" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title th:text="#{domain.adminhome.mainPage}">PROREMA - Hauptseite</title>
+
+    <style type="text/css">
+   a {
+      text-decoration:none!important;
+   }
+</style>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <br />
+
+    <div class="jumbotron">
+        <h2 th:text="#{domain.adminhome.hello} + ' ' + ${homeName} + ','" />
+        <p th:text="#{domain.adminhome.welcome}">Willkommen bei PROREMA. <br />
+            Hier finden Sie eine Auswahl wichtiger Funktionen für Administratoren . </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <br />
+            <div class="jumbotron" style="padding: 25px; min-height: 490px; padding-bottom: 5px">
+                <center><h2 th:text="#{domain.adminhome.general}">ALLGEMEIN</h2>
+                <br />
+                    <a href="/projects"><button type="button" class="btn btn-block btn-lg btn-info" th:text="#{domain.adminhome.projectOverview}">
+                        <span class="glyphicon glyphicon-file"></span>  Übersicht Projekte </button></a>
+                <br />
+                    <a href="/userslist"><button type="button" class="btn btn-block btn-lg btn-info" th:text="#{domain.adminhome.overviewEmployees}">
+                    <span class="glyphicon glyphicon-user"></span>  Übersicht Mitarbeiter </button></a>
+                <br /><br />
+                    <a href="/areas"><button type="button" class="btn btn-block btn-info" th:text="#{domain.adminhome.overviewAreas}">
+                    <span class="glyphicon glyphicon-flag"></span>  Übersicht Bereiche </button></a>
+                <br />
+                    <a href="/clientlist"><button type="button" class="btn btn-block btn-info" th:text="#{domain.adminhome.overviewClients}">
+                        <span class="glyphicon glyphicon-briefcase"></span>  Übersicht Klienten </button></a>
+                <br />
+                    <a href="/skillslist"><button type="button" class="btn btn-block btn-info" th:text="#{domain.adminhome.overviewSkills}">
+                        <span class="glyphicon glyphicon-education"></span>  Übersicht Skills </button></a>
+                <br />
+                    <a href="/schedule"><button type="button" class="btn btn-block btn-info" th:text="#{domain.adminhome.scheduleView}">
+                        <span class="glyphicon glyphicon-tasks"></span>  Planungsansicht </button></a>
+                </center>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="container">
+            <br />
+            <div class="jumbotron" style="padding: 25px; min-height: 490px">
+               <center> <h2 >ADMINISTRATION</h2>
+                   <br />
+                   <a href="/projectform"><button type="button" class="btn btn-block btn-lg btn-success" th:text="#{domain.adminhome.newProject}">
+                       <span class="glyphicon glyphicon-file"></span>  Neues Projekt </button></a>
+                   <br />
+                   <a href="/userform"><button type="button" class="btn btn-block btn-lg btn-success" th:text="#{domain.adminhome.newEmployee}">
+                       <span class="glyphicon glyphicon-user"></span>  Neuer Mitarbeiter </button></a>
+                   <br /><br />
+                   <a href="/areaform"><button type="button" class="btn btn-block btn-success" th:text="#{domain.adminhome.newArea}">
+                       <span class="glyphicon glyphicon-flag"></span>  Neuer Bereich </button></a>
+                   <br />
+                   <a href="/clientform"><button type="button" class="btn btn-block btn-success" th:text="#{domain.adminhome.newClient}">
+                       <span class="glyphicon glyphicon-briefcase"></span>  Neuer Klient </button></a>
+                   <br />
+                   <a href="/skillform"><button type="button" class="btn btn-block btn-success" th:text="#{domain.adminhome.newSkill}">
+                       <span class="glyphicon glyphicon-education"></span>  Neuer Skill </button></a>
+                   <br />
+                   <a href="/archiveform"><button type="button" class="btn btn-block btn-success" th:text="#{domain.adminhome.archive}">
+                       <span class="glyphicon glyphicon-education"></span>  Archivierung </button></a>
+
+
+               </center>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <br />
+            <div class="jumbotron" style="padding: 25px; min-height: 490px">
+                <center><h2 th:text="#{domain.adminhome.other}">SONSTIGES</h2>
+                    <br />
+                    <a th:href="@{/userprofile(id=${loggedInUserId})}"><button type="button" class="btn btn-block btn-lg btn-default" th:text="#{domain.adminhome.editOwnProfile}">
+                        <span class="glyphicon glyphicon-pencil"></span>  Eigenes Profil bearbeiten </button></a>
+                    <br />
+                    <a href="/logout"><button type="button" class="btn btn-block btn-lg btn-default" th:text="#{domain.adminhome.logOut}">
+                        <span class="glyphicon glyphicon-log-out"></span>  Abmelden </button></a>
+
+                </center>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+</body>
+</html>
